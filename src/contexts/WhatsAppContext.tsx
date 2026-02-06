@@ -61,7 +61,7 @@ export const WhatsAppProvider: React.FC<{ children: ReactNode }> = ({ children }
         },
         {
           id: 'londrina',
-          name: 'Loja Londrina',
+          name: 'Repal Londrina',
           phone: '5543984446097',
           displayPhone: '(43) 98444-6097'
         }

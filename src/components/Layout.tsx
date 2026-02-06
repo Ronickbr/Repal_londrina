@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 import GlobalPopup from './GlobalPopup';
 import PopupManager from './PopupManager';
+import StickyQuoteBar from './StickyQuoteBar';
 import { useSiteSettings } from '../hooks/useSiteSettings';
 import { logActivity } from '../lib/supabase';
 
@@ -71,6 +72,7 @@ const Layout: React.FC = () => {
         <meta name="twitter:description" content={metaDescription || 'Equipamentos gastronômicos profissionais de alta qualidade para sua cozinha industrial.'} />
       </Helmet>
       <div className="min-h-screen flex flex-col bg-white">
+        <StickyQuoteBar />
         <PopupManager />
         <GlobalPopup />
         <Header />

@@ -17,9 +17,9 @@ const Footer: React.FC = () => {
           {/* Company Info */}
           <div className="lg:col-span-1 space-y-4">
             <div className="flex items-center space-x-3">
-              <img 
-                src={logoSrc} 
-                alt={siteName || "Repal Equipamentos"} 
+              <img
+                src={logoSrc}
+                alt={siteName || "Repal Equipamentos"}
                 className="h-12 sm:h-16 w-auto"
                 referrerPolicy="no-referrer"
                 crossOrigin="anonymous"
@@ -29,8 +29,8 @@ const Footer: React.FC = () => {
             <div className="text-white text-sm">
               <p className="font-semibold mb-1 sm:mb-2">Nossos Diferenciais</p>
               <p className="text-gray-300 text-xs leading-relaxed">
-                Atendimento por consultores experientes, produtos da melhor qualidade e à pronta entrega, 
-                localização privilegiada no centro da cidade, estacionamento conveniado ao lado, 
+                Atendimento por consultores experientes, produtos da melhor qualidade e à pronta entrega,
+                localização privilegiada no centro da cidade, estacionamento conveniado ao lado,
                 preços competitivos, várias formas de negociação.
               </p>
             </div>
@@ -91,9 +91,9 @@ const Footer: React.FC = () => {
           {/* Formas de Pagamento */}
           <div className="space-y-3 sm:space-y-4">
             <h3 className="text-base sm:text-lg font-semibold text-white">FORMAS DE PAGAMENTOS</h3>
-            <img 
-              src="https://urucuna.com/wp-content/uploads/2021/02/bandeiras-cartoes-credito-300x99.png" 
-              alt="Formas de Pagamento Aceitas" 
+            <img
+              src="https://urucuna.com/wp-content/uploads/2021/02/bandeiras-cartoes-credito-300x99.png"
+              alt="Formas de Pagamento Aceitas"
               className="w-full max-w-[200px] sm:max-w-xs h-auto"
             />
           </div>

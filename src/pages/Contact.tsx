@@ -57,23 +57,22 @@ const Contact: React.FC = () => {
       icon: MapPin,
       title: 'Endereço',
       details: address ? address.split(',').map(line => line.trim()) : [
-        'Rua dos Equipamentos, 1234',
-        'Distrito Industrial',
-        'São Paulo - SP, 01234-567'
+        'R. Minas Gerais, 164 - Centro',
+        'Londrina - PR, 86010-170'
       ]
     },
     {
       icon: Phone,
       title: 'Telefones',
       details: [
-        contactPhone || '(11) 99999-9999',
+        contactPhone || '(43) 3324-2892',
       ]
     },
     {
       icon: Mail,
       title: 'E-mails',
       details: [
-        contactEmail || 'contato@repalequipamentos.com.br',
+        contactEmail || 'repallondrina@hotmail.com',
       ]
     },
     {
@@ -96,7 +95,7 @@ const Contact: React.FC = () => {
             Entre em Contato
           </h1>
           <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
-            Nossa equipe especializada está pronta para ajudar você a encontrar 
+            Nossa equipe especializada está pronta para ajudar você a encontrar
             as melhores soluções em equipamentos para sua cozinha industrial.
           </p>
         </div>
@@ -124,7 +123,7 @@ const Contact: React.FC = () => {
                     Mensagem enviada com sucesso!
                   </h3>
                   <p className="text-gray-600 mb-6">
-                    Obrigado pelo seu interesse. Nossa equipe entrará em contato 
+                    Obrigado pelo seu interesse. Nossa equipe entrará em contato
                     em breve para oferecer as melhores soluções para sua necessidade.
                   </p>
                   <button
@@ -150,7 +149,7 @@ const Contact: React.FC = () => {
                         placeholder="Seu nome completo"
                       />
                     </div>
-                    
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         E-mail *
@@ -165,7 +164,7 @@ const Contact: React.FC = () => {
                       />
                     </div>
                   </div>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -180,7 +179,7 @@ const Contact: React.FC = () => {
                         placeholder="(11) 99999-9999"
                       />
                     </div>
-                    
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Produto de Interesse
@@ -194,7 +193,7 @@ const Contact: React.FC = () => {
                       />
                     </div>
                   </div>
-                  
+
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Mensagem *
@@ -208,7 +207,7 @@ const Contact: React.FC = () => {
                       placeholder="Conte-nos sobre sua necessidade, tipo de estabelecimento, quantidade de equipamentos, etc."
                     />
                   </div>
-                  
+
                   <button
                     type="submit"
                     disabled={submitting}
@@ -235,7 +234,7 @@ const Contact: React.FC = () => {
               <h2 className="text-3xl font-bold text-gray-900 mb-8">
                 Informações de Contato
               </h2>
-              
+
               <div className="space-y-8">
                 {contactInfo.map((info, index) => {
                   const IconComponent = info.icon;
@@ -266,25 +265,25 @@ const Contact: React.FC = () => {
                 <h3 className="text-xl font-bold text-gray-900 mb-4">
                   Contato Rápido
                 </h3>
-                
+
                 <WhatsAppButton
                   className="w-full text-white px-6 py-4 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3"
                   message="Olá! Gostaria de solicitar um orçamento."
                 >
-                  
+
                   <span>WhatsApp</span>
                 </WhatsAppButton>
-                
+
                 <a
-                  href={`tel:${contactPhone?.replace(/\D/g, '') || '+5541999412928'}`}
+                  href={`tel:${contactPhone?.replace(/\D/g, '') || '+554333242892'}`}
                   className="w-full bg-blue-900 hover:bg-blue-800 text-white px-6 py-4 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3"
                 >
                   <Phone className="h-6 w-6" />
                   <span>Ligar Agora</span>
                 </a>
-                
+
                 <a
-                  href={`mailto:${contactEmail || 'contato@repalequipamentos.com.br'}`}
+                  href={`mailto:${contactEmail || 'repallondrina@hotmail.com'}`}
                   className="w-full bg-gray-700 hover:bg-gray-800 text-white px-6 py-4 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3"
                 >
                   <Mail className="h-6 w-6" />
@@ -307,7 +306,7 @@ const Contact: React.FC = () => {
               Visite nosso showroom e conheça de perto nossos equipamentos.
             </p>
           </div>
-          
+
           <MyMapsComponent />
         </div>
       </div>
@@ -323,36 +322,33 @@ const Contact: React.FC = () => {
               Respostas para as dúvidas mais comuns sobre nossos produtos e serviços.
             </p>
           </div>
-          
+
           {/* Tabs Navigation */}
           <div className="flex flex-wrap justify-center mb-8 bg-gray-100 rounded-lg p-2">
             <button
               onClick={() => setActiveTab('entrega')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mx-1 mb-2 sm:mb-0 ${
-                activeTab === 'entrega'
+              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mx-1 mb-2 sm:mb-0 ${activeTab === 'entrega'
                   ? 'bg-red-900 text-white shadow-lg'
                   : 'text-gray-600 hover:text-red-900 hover:bg-white'
-              }`}
+                }`}
             >
               Entrega &amp; Instalação
             </button>
             <button
               onClick={() => setActiveTab('garantia')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mx-1 mb-2 sm:mb-0 ${
-                activeTab === 'garantia'
+              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mx-1 mb-2 sm:mb-0 ${activeTab === 'garantia'
                   ? 'bg-red-900 text-white shadow-lg'
                   : 'text-gray-600 hover:text-red-900 hover:bg-white'
-              }`}
+                }`}
             >
               Garantia &amp; Manutenção
             </button>
             <button
               onClick={() => setActiveTab('produtos')}
-              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mx-1 mb-2 sm:mb-0 ${
-                activeTab === 'produtos'
+              className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mx-1 mb-2 sm:mb-0 ${activeTab === 'produtos'
                   ? 'bg-red-900 text-white shadow-lg'
                   : 'text-gray-600 hover:text-red-900 hover:bg-white'
-              }`}
+                }`}
             >
               Produtos &amp; Serviços
             </button>
@@ -361,11 +357,10 @@ const Contact: React.FC = () => {
           {/* Tab Content */}
           <div className="relative">
             {/* Entrega & Instalação Tab */}
-            <div className={`transition-all duration-500 ${
-              activeTab === 'entrega' 
-                ? 'opacity-100 transform translate-y-0' 
+            <div className={`transition-all duration-500 ${activeTab === 'entrega'
+                ? 'opacity-100 transform translate-y-0'
                 : 'opacity-0 transform translate-y-4 absolute inset-0 pointer-events-none'
-            }`}>
+              }`}>
               {activeTab === 'entrega' && (
                 <div className="space-y-6">
                   <div className="bg-white rounded-lg shadow-sm p-6">
@@ -373,37 +368,37 @@ const Contact: React.FC = () => {
                       Vocês fazem entrega em todo o Brasil?
                     </h3>
                     <p className="text-gray-600">
-                      Sim, realizamos entregas em todo o território nacional. O prazo e valor 
+                      Sim, realizamos entregas em todo o território nacional. O prazo e valor
                       do frete variam conforme a localização e o tipo de equipamento.
                     </p>
                   </div>
-                  
+
                   <div className="bg-white rounded-lg shadow-sm p-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
                       Oferecem serviço de instalação?
                     </h3>
                     <p className="text-gray-600">
-                      Sim, temos equipe técnica especializada para instalação e configuração 
+                      Sim, temos equipe técnica especializada para instalação e configuração
                       de todos os equipamentos que vendemos, garantindo o funcionamento perfeito.
                     </p>
                   </div>
-                  
+
                   <div className="bg-white rounded-lg shadow-sm p-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
                       Qual o prazo de entrega dos equipamentos?
                     </h3>
                     <p className="text-gray-600">
-                      O prazo varia de acordo com o produto e localização. Equipamentos em estoque 
+                      O prazo varia de acordo com o produto e localização. Equipamentos em estoque
                       são entregues em 3-7 dias úteis. Produtos sob encomenda podem levar de 15-30 dias.
                     </p>
                   </div>
-                  
+
                   <div className="bg-white rounded-lg shadow-sm p-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
                       A instalação está incluída no preço?
                     </h3>
                     <p className="text-gray-600">
-                      A instalação básica está incluída para equipamentos de grande porte. 
+                      A instalação básica está incluída para equipamentos de grande porte.
                       Instalações especiais ou que requerem adaptações podem ter custo adicional.
                     </p>
                   </div>
@@ -412,11 +407,10 @@ const Contact: React.FC = () => {
             </div>
 
             {/* Garantia & Manutenção Tab */}
-            <div className={`transition-all duration-500 ${
-              activeTab === 'garantia' 
-                ? 'opacity-100 transform translate-y-0' 
+            <div className={`transition-all duration-500 ${activeTab === 'garantia'
+                ? 'opacity-100 transform translate-y-0'
                 : 'opacity-0 transform translate-y-4 absolute inset-0 pointer-events-none'
-            }`}>
+              }`}>
               {activeTab === 'garantia' && (
                 <div className="space-y-6">
                   <div className="bg-white rounded-lg shadow-sm p-6">
@@ -424,37 +418,37 @@ const Contact: React.FC = () => {
                       Qual é o prazo de garantia dos equipamentos?
                     </h3>
                     <p className="text-gray-600">
-                      A garantia varia conforme o fabricante e tipo de equipamento, 
+                      A garantia varia conforme o fabricante e tipo de equipamento,
                       geralmente entre 12 a 24 meses. Oferecemos também extensão de garantia.
                     </p>
                   </div>
-                  
+
                   <div className="bg-white rounded-lg shadow-sm p-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
                       Fazem manutenção preventiva?
                     </h3>
                     <p className="text-gray-600">
-                      Sim, oferecemos planos de manutenção preventiva para garantir o 
+                      Sim, oferecemos planos de manutenção preventiva para garantir o
                       funcionamento ideal dos equipamentos e prolongar sua vida útil.
                     </p>
                   </div>
-                  
+
                   <div className="bg-white rounded-lg shadow-sm p-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
                       O que está coberto pela garantia?
                     </h3>
                     <p className="text-gray-600">
-                      A garantia cobre defeitos de fabricação, peças e mão de obra. 
+                      A garantia cobre defeitos de fabricação, peças e mão de obra.
                       Não cobre danos por uso inadequado, desgaste natural ou acidentes.
                     </p>
                   </div>
-                  
+
                   <div className="bg-white rounded-lg shadow-sm p-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
                       Qual o tempo de resposta para assistência técnica?
                     </h3>
                     <p className="text-gray-600">
-                      Nossa equipe técnica atende chamados em até 24 horas na Grande São Paulo 
+                      Nossa equipe técnica atende chamados em até 24 horas na Grande São Paulo
                       e até 48 horas no interior e outras capitais.
                     </p>
                   </div>
@@ -463,11 +457,10 @@ const Contact: React.FC = () => {
             </div>
 
             {/* Produtos & Serviços Tab */}
-            <div className={`transition-all duration-500 ${
-              activeTab === 'produtos' 
-                ? 'opacity-100 transform translate-y-0' 
+            <div className={`transition-all duration-500 ${activeTab === 'produtos'
+                ? 'opacity-100 transform translate-y-0'
                 : 'opacity-0 transform translate-y-4 absolute inset-0 pointer-events-none'
-            }`}>
+              }`}>
               {activeTab === 'produtos' && (
                 <div className="space-y-6">
                   <div className="bg-white rounded-lg shadow-sm p-6">
@@ -475,37 +468,37 @@ const Contact: React.FC = () => {
                       Quais tipos de equipamentos vocês vendem?
                     </h3>
                     <p className="text-gray-600">
-                      Oferecemos linha completa de equipamentos para cozinha industrial: 
+                      Oferecemos linha completa de equipamentos para cozinha industrial:
                       fogões, fornos, geladeiras, freezers, fritadeiras, chapas, coifas e muito mais.
                     </p>
                   </div>
-                  
+
                   <div className="bg-white rounded-lg shadow-sm p-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
                       Trabalham com equipamentos usados?
                     </h3>
                     <p className="text-gray-600">
-                      Sim, temos uma seleção de equipamentos seminovos revisados e com garantia. 
+                      Sim, temos uma seleção de equipamentos seminovos revisados e com garantia.
                       Também fazemos avaliação para troca do seu equipamento usado.
                     </p>
                   </div>
-                  
+
                   <div className="bg-white rounded-lg shadow-sm p-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
                       Fazem projetos personalizados?
                     </h3>
                     <p className="text-gray-600">
-                      Sim, nossa equipe desenvolve projetos completos para cozinhas industriais, 
+                      Sim, nossa equipe desenvolve projetos completos para cozinhas industriais,
                       desde o layout até a especificação dos equipamentos ideais.
                     </p>
                   </div>
-                  
+
                   <div className="bg-white rounded-lg shadow-sm p-6">
                     <h3 className="text-lg font-semibold text-gray-900 mb-3">
                       Oferecem financiamento?
                     </h3>
                     <p className="text-gray-600">
-                      Sim, trabalhamos com diversas modalidades de financiamento e parcelamento 
+                      Sim, trabalhamos com diversas modalidades de financiamento e parcelamento
                       para facilitar a aquisição dos equipamentos para seu negócio.
                     </p>
                   </div>
@@ -523,14 +516,14 @@ const Contact: React.FC = () => {
             Transforme sua Cozinha em uma Verdadeira Potência Gastronômica
           </h2>
           <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
-            Entre em contato agora e descubra como nossos equipamentos podem 
+            Entre em contato agora e descubra como nossos equipamentos podem
             revolucionar sua operação culinária.
           </p>
           <WhatsAppButton
             message="Olá! Quero transformar minha cozinha em uma potência gastronômica."
             className="text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center space-x-2"
           >
-            
+
             <span>Falar no WhatsApp Agora</span>
           </WhatsAppButton>
         </div>
