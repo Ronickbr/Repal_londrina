@@ -29,7 +29,7 @@ export default async function handler(req, res) {
       .limit(1)
       .single();
 
-    const origin = (settings?.seo?.canonical_url || settings?.site_info?.url || 'https://www.repalmarechal.com.br').trim().replace(/\/+$/, '');
+    const origin = (settings?.seo?.canonical_url || settings?.site_info?.url || 'https://www.repallondrina.com.br').trim().replace(/\/+$/, '');
     const now = formatDate(new Date());
 
     let urls = [
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
     const byId = new Map();
     if (categories) {
       categories.forEach(c => byId.set(c.id, c));
-      
+
       categories.forEach(c => {
         const lastmod = formatDate(c.updated_at);
         if (!c.parent_id) {
