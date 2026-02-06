@@ -145,30 +145,30 @@ const ProductPage: React.FC = () => {
           })}
         </script>
       </Helmet>
-      {/* Breadcrumb */}
-      <div className="bg-white border-b">
+      {/* Breadcrumb - Modern Design */}
+      <div className="bg-gradient-to-b from-white to-gray-50 border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center space-x-2 text-sm">
-            <Link to="/" className="text-gray-500 hover:text-gray-700">
+          <nav className="flex items-center space-x-2 text-sm bg-white/70 backdrop-blur-sm rounded-full px-6 py-3 shadow-sm border border-gray-200/50 inline-flex">
+            <Link to="/" className="text-gray-600 hover:text-red-700 transition-colors duration-200 font-medium">
               Início
             </Link>
             <span className="text-gray-400">/</span>
-            <Link to="/categorias" className="text-gray-500 hover:text-gray-700">
+            <Link to="/categorias" className="text-gray-600 hover:text-red-700 transition-colors duration-200 font-medium">
               Categorias
             </Link>
             {product.category && (
               <>
                 <span className="text-gray-400">/</span>
-                <Link 
-                  to={`/categorias/${product.category.slug}`} 
-                  className="text-gray-500 hover:text-gray-700"
+                <Link
+                  to={`/categorias/${product.category.slug}`}
+                  className="text-gray-600 hover:text-red-700 transition-colors duration-200 font-medium"
                 >
                   {product.category.name}
                 </Link>
               </>
             )}
             <span className="text-gray-400">/</span>
-            <span className="text-gray-900 font-medium">{product.name}</span>
+            <span className="text-gray-900 font-semibold truncate max-w-xs">{product.name}</span>
           </nav>
         </div>
       </div>
@@ -176,33 +176,38 @@ const ProductPage: React.FC = () => {
       {/* Product Details */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Image Gallery */}
-          <div>
-            <div className="mb-6">
+          {/* Image Gallery - Modern Design */}
+          <div className="space-y-4">
+            <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden group">
               <img
                 src={images[selectedImageIndex]?.image_url || 'https://via.placeholder.com/600x600?text=Produto'}
                 alt={images[selectedImageIndex]?.alt_text || product.name}
-                className="w-full h-96 object-cover rounded-lg shadow-lg"
+                className="w-full h-96 object-contain transition-transform duration-500 group-hover:scale-105"
               />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-all duration-300" />
             </div>
-            
+
             {images.length > 1 && (
-              <div className="grid grid-cols-4 gap-4">
+              <div className="grid grid-cols-4 gap-3">
                 {images.map((image, index) => (
                   <button
                     key={image.id}
                     onClick={() => setSelectedImageIndex(index)}
-                    className={`aspect-square rounded-lg overflow-hidden border-2 transition-all ${
-                      selectedImageIndex === index 
-                        ? 'border-red-500 ring-2 ring-red-200' 
-                        : 'border-gray-200 hover:border-gray-300'
-                    }`}
+                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all duration-300 hover:scale-105 group ${selectedImageIndex === index
+                        ? 'border-red-600 ring-2 ring-red-600 ring-opacity-30 shadow-lg'
+                        : 'border-gray-200 hover:border-red-400 shadow-sm hover:shadow-md'
+                      }`}
                   >
                     <img
                       src={image.image_url}
                       alt={image.alt_text}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
+                    {selectedImageIndex === index && (
+                      <div className="absolute inset-0 bg-red-600/10 flex items-center justify-center">
+                        <div className="w-3 h-3 bg-red-600 rounded-full animate-pulse" />
+                      </div>
+                    )}
                   </button>
                 ))}
               </div>
@@ -221,22 +226,22 @@ const ProductPage: React.FC = () => {
 
             {product.featured && (
               <div className="mb-4">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-800">
-                  <Star className="h-4 w-4 mr-1" />
+                <span className="inline-flex items-center px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-red-600 to-orange-500 text-white shadow-md">
+                  <Star className="h-4 w-4 mr-1 fill-current" />
                   Produto em Destaque
                 </span>
               </div>
             )}
 
-            <h1 className="text-4xl font-bold text-gray-900 mb-6">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               {product.name}
             </h1>
 
             <div className="prose prose-lg text-gray-600 mb-8">
-              <SafeHTML 
-                  className="prose prose-gray max-w-none"
-                  html={product.description || ''}
-                />
+              <SafeHTML
+                className="prose prose-gray max-w-none"
+                html={product.description || ''}
+              />
             </div>
             <h2 className="sr-only">Descrição do Produto</h2>
 
@@ -263,27 +268,27 @@ const ProductPage: React.FC = () => {
               </ul>
             </div>
 
-            {/* Contact Actions */}
+            {/* Contact Actions - Modern Design */}
             <div className="space-y-4">
               <WhatsAppButton
-                className="w-full text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center space-x-3"
+                className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl inline-flex items-center justify-center space-x-3 shadow-lg"
                 message={whatsappMessage}
               >
                 <MessageCircle className="h-6 w-6" />
                 <span>Consultar no WhatsApp</span>
               </WhatsAppButton>
-              
+
               <button
                 onClick={() => setShowContactForm(!showContactForm)}
-                className="w-full bg-red-900 hover:bg-red-800 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 inline-flex items-center justify-center space-x-3"
+                className="w-full bg-gradient-to-r from-red-700 to-red-800 hover:from-red-800 hover:to-red-900 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl inline-flex items-center justify-center space-x-3 shadow-lg"
               >
                 <Mail className="h-6 w-6" />
                 <span>Solicitar Orçamento</span>
               </button>
-              
+
               <a
                 href="tel:+5511999999999"
-                className="w-full bg-blue-900 hover:bg-blue-800 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 inline-flex items-center justify-center space-x-3"
+                className="w-full bg-gradient-to-r from-blue-700 to-blue-800 hover:from-blue-800 hover:to-blue-900 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl inline-flex items-center justify-center space-x-3 shadow-lg"
               >
                 <Phone className="h-6 w-6" />
                 <span>Ligar Agora</span>
@@ -298,7 +303,7 @@ const ProductPage: React.FC = () => {
             <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
               Solicitar Orçamento - {product.name}
             </h2>
-            
+
             {submitted ? (
               <div className="text-center py-8">
                 <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
@@ -334,7 +339,7 @@ const ProductPage: React.FC = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     E-mail *
@@ -347,7 +352,7 @@ const ProductPage: React.FC = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   />
                 </div>
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Telefone *
@@ -360,7 +365,7 @@ const ProductPage: React.FC = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   />
                 </div>
-                
+
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     Mensagem
@@ -373,7 +378,7 @@ const ProductPage: React.FC = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
                   />
                 </div>
-                
+
                 <div className="md:col-span-2 flex gap-4">
                   <button
                     type="submit"
@@ -395,42 +400,49 @@ const ProductPage: React.FC = () => {
           </div>
         )}
 
-        {/* Trust Indicators */}
-        <div className="mt-16 bg-white rounded-2xl shadow-sm p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-            Por que escolher a Repal Equipamentos?
-          </h2>
+        {/* Trust Indicators - Modern Design */}
+        <div className="mt-16 bg-gradient-to-br from-white to-gray-50 rounded-3xl shadow-xl p-8 sm:p-12 border border-gray-100">
+          <div className="text-center mb-10">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <div className="h-1 w-12 bg-gradient-to-r from-red-600 to-orange-500 rounded-full" />
+              <Star className="w-5 h-5 text-red-600 fill-red-600" />
+              <div className="h-1 w-12 bg-gradient-to-l from-red-600 to-orange-500 rounded-full" />
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+              Por que escolher a Repal Equipamentos?
+            </h2>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="bg-red-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Star className="h-8 w-8 text-red-600" />
+            <div className="group text-center p-6 rounded-2xl bg-white hover:bg-gradient-to-br hover:from-red-50 hover:to-orange-50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+              <div className="bg-gradient-to-br from-red-600 to-orange-500 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <Star className="h-8 w-8 text-white fill-current" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-bold text-gray-900 mb-2">
                 Qualidade Garantida
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 leading-relaxed">
                 Equipamentos de alta qualidade com garantia e suporte técnico especializado.
               </p>
             </div>
-            <div className="text-center">
-              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Phone className="h-8 w-8 text-blue-600" />
+            <div className="group text-center p-6 rounded-2xl bg-white hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+              <div className="bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <Phone className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-bold text-gray-900 mb-2">
                 Atendimento Especializado
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 leading-relaxed">
                 Nossa equipe está pronta para ajudar você a escolher o equipamento ideal.
               </p>
             </div>
-            <div className="text-center">
-              <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                <Check className="h-8 w-8 text-green-600" />
+            <div className="group text-center p-6 rounded-2xl bg-white hover:bg-gradient-to-br hover:from-green-50 hover:to-emerald-50 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+              <div className="bg-gradient-to-br from-green-600 to-emerald-600 rounded-2xl w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <Check className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              <h3 className="text-lg font-bold text-gray-900 mb-2">
                 Entrega e Instalação
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 leading-relaxed">
                 Serviços completos de entrega e instalação para sua comodidade.
               </p>
             </div>

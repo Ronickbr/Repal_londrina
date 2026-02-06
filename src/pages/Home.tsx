@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Award, Truck, Shield, MessageCircle } from 'lucide-react';
+import { ArrowRight, Award, Truck, Shield, MessageCircle, Utensils, Zap, Flame, Snowflake, Coffee, ListChecks, Plus, ChevronRight, Sparkles, TrendingUp } from 'lucide-react';
+
 import BannerCarousel from '../components/BannerCarousel';
 import { supabase } from '../lib/supabase';
 import { table } from '../lib/schema';
@@ -72,7 +73,7 @@ const Home: React.FC = () => {
             .eq('featured_on_homepage', true)
             .eq('active', true)
             .limit(8);
-          
+
           productsData = featuredData;
           productsError = featuredError;
         }
@@ -95,7 +96,7 @@ const Home: React.FC = () => {
             .eq('active', true)
             .order('created_at', { ascending: false })
             .limit(8);
-          
+
           productsData = recentData;
           productsError = recentError;
         }
@@ -136,7 +137,7 @@ const Home: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2" style={{borderColor: '#8B0000'}}></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2" style={{ borderColor: '#8B0000' }}></div>
       </div>
     );
   }
@@ -177,6 +178,36 @@ const Home: React.FC = () => {
       {/* Banner Carousel */}
       <BannerCarousel />
 
+      {/* Quick Category Access - Modern Card Design */}
+      <section className="bg-gradient-to-b from-white to-gray-50 border-b shadow-sm py-6">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+            {[
+              { name: 'Restaurantes', icon: Utensils, gradient: 'from-red-50 to-red-100', iconColor: 'text-red-600', link: '/categorias/bar-restaurante' },
+              { name: 'Padarias', icon: Coffee, gradient: 'from-orange-50 to-orange-100', iconColor: 'text-orange-600', link: '/categorias/padaria-confeitaria' },
+              { name: 'Açougues', icon: Flame, gradient: 'from-rose-50 to-rose-100', iconColor: 'text-rose-600', link: '/categorias/acougue' },
+              { name: 'Refrigeração', icon: Snowflake, gradient: 'from-blue-50 to-blue-100', iconColor: 'text-blue-600', link: '/categorias/refrigeracao-comercial' },
+              { name: 'Equipamentos', icon: Zap, gradient: 'from-amber-50 to-amber-100', iconColor: 'text-amber-600', link: '/categorias/equipamentos' },
+              { name: 'Ver Tudo', icon: ListChecks, gradient: 'from-gray-50 to-gray-100', iconColor: 'text-gray-700', link: '/categorias' },
+            ].map((cat, i) => (
+              <Link
+                key={i}
+                to={cat.link}
+                className="group relative overflow-hidden rounded-2xl bg-white border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+              >
+                <div className={`absolute inset-0 bg-gradient-to-br ${cat.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+                <div className="relative p-4 sm:p-5 flex flex-col items-center gap-3">
+                  <div className={`p-3 sm:p-4 rounded-xl bg-gradient-to-br ${cat.gradient} group-hover:scale-110 transition-transform duration-300`}>
+                    <cat.icon className={`w-6 h-6 sm:w-7 sm:h-7 ${cat.iconColor}`} />
+                  </div>
+                  <span className="text-xs sm:text-sm font-bold text-gray-800 text-center leading-tight">{cat.name}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="py-6 bg-white" style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-gray-900">
@@ -191,59 +222,66 @@ const Home: React.FC = () => {
       {/* Nossos Produtos */}
       <section className="py-16 bg-gray-50" aria-labelledby="heading-nossos-produtos">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-8">
-            <h2 id="heading-nossos-produtos" className="text-3xl font-bold text-gray-900">Nossos Produtos</h2>
-            <div className="mt-2" style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
-              <h3 className="text-xl font-semibold text-gray-800">Equipamentos Profissionais</h3>
-              <p className="text-gray-600">Linha completa para cozinhas industriais com robustez, eficiência e segurança, pronta para atender grandes demandas.</p>
+          <div className="flex items-center justify-between mb-8 sm:mb-10">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="h-1 w-12 bg-gradient-to-r from-red-600 to-orange-500 rounded-full" />
+                <Sparkles className="w-5 h-5 text-red-600" />
+              </div>
+              <h2 id="heading-nossos-produtos" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                Equipamentos em Destaque
+              </h2>
+              <p className="text-sm sm:text-base text-gray-600">
+                Os equipamentos mais procurados pelos profissionais
+              </p>
             </div>
-            <div className="mt-3" style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', overflow: 'hidden' }}>
-              <h3 className="text-xl font-semibold text-gray-800">Peças e Acessórios</h3>
-              <p className="text-gray-600">Peças originais e acessórios compatíveis para manutenção preventiva e corretiva, garantindo disponibilidade e performance contínua.</p>
-            </div>
+            <Link
+              to="/categorias"
+              className="hidden sm:flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-300 shadow-md hover:shadow-lg group"
+            >
+              <span>Ver Todos</span>
+              <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
+
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
             {featuredProducts.length > 0 ? (
               featuredProducts.map((product) => (
                 <div
                   key={product.id}
-                  className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden h-full flex flex-col"
+                  className="marketplace-card rounded shadow-sm hover:shadow-md h-full flex flex-col group"
                 >
-                  <div className="aspect-square overflow-hidden">
+                  <div className="relative aspect-square overflow-hidden bg-white p-4">
                     <img
                       src={product.image_url || 'https://via.placeholder.com/400x400?text=Produto'}
                       alt={product.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
                     />
+                    <div className="absolute top-2 left-2">
+                      <span className="badge-repal">Destaque</span>
+                    </div>
                   </div>
-                  <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 line-clamp-2">
+                  <div className="p-3 sm:p-5 flex-1 flex flex-col">
+                    <h3 className="text-sm sm:text-base font-medium text-gray-800 mb-2 line-clamp-2 min-h-[40px] group-hover:text-primary transition-colors">
                       {product.name}
                     </h3>
-                    <p className="text-gray-600 mb-4 text-sm sm:text-base">Equipamento profissional para seu negócio.</p>
-                    <div className="space-y-3">
+
+                    <div className="mt-auto space-y-2">
                       <Link
                         to={product.slug ? `/produto/${product.slug}` : '#'}
-                        onClick={(e) => {
-                          if (!product.slug) {
-                            console.error('❌ Produto sem slug!');
-                            e.preventDefault();
-                          }
-                        }}
-                        className="w-full bg-red-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors block text-center text-sm sm:text-base"
+                        className="w-full text-center border border-primary text-primary px-2 py-1.5 rounded text-xs sm:text-sm font-bold hover:bg-red-50 transition-colors block"
                       >
-                        Ver Detalhes
+                        Detalhes
                       </Link>
-                      <button 
+                      <button
                         onClick={() => addItem({
                           id: product.id.toString(),
                           name: product.name,
                           image: product.image_url || undefined
                         })}
-                        className="w-full bg-gray-100 text-gray-700 px-3 sm:px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors border border-gray-300 text-sm sm:text-base"
+                        className="w-full bg-primary text-white px-3 py-1.5 rounded text-xs sm:text-sm font-bold hover:bg-primary-hover shadow-sm transition-all flex items-center justify-center gap-1"
                       >
-                        Incluir na Lista
+                        <Plus className="w-3 h-3" /> Orçamento
                       </button>
                     </div>
                   </div>
@@ -275,101 +313,45 @@ const Home: React.FC = () => {
       {/* Categorias Section */}
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Categorias</h2>
-            <p className="text-gray-600">Confira nossas categorias online</p>
+          <div className="mb-10 flex items-end justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900 border-l-4 border-primary pl-4">Categorias em Destaque</h2>
+              <p className="text-gray-500 pl-4">Tudo o que sua cozinha industrial precisa</p>
+            </div>
           </div>
-          
+
           {/* Grid de Categorias */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
-            {/* Restaurantes */}
-            <Link
-              to="/categorias/bar-restaurante"
-              className="group relative bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-48 sm:h-56 lg:h-64"
-            >
-              <div className="absolute inset-0">
-                <img
-                  src="/images/restaurante.png"
-                  alt="Restaurantes"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-black/40"></div>
-              </div>
-              <div className="relative z-10 p-6 h-full flex flex-col justify-end">
-                <h3 className="text-white text-lg sm:text-xl font-bold mb-2">Restaurantes</h3>
-                <p className="text-gray-200 text-xs sm:text-sm mb-3">Equipamentos que trazem agilidade, eficiência e qualidade para sua cozinha profissional.</p>
-                <span className="text-white text-xs sm:text-sm font-medium flex items-center">
-                  Ver Mais <ArrowRight className="h-4 w-4 ml-1" />
-                </span>
-              </div>
-            </Link>
-
-            {/* Açougues */}
-            <Link
-              to="/categorias/acougue"
-              className="group relative rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-48 sm:h-56 lg:h-64"
-              style={{background: 'linear-gradient(to bottom right, #8B0000, #660000)'}}
-            >
-              <div className="absolute inset-0">
-                <img
-                  src="/images/açougue.png"
-                  alt="Açougues"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0" style={{backgroundColor: '#8B0000', opacity: 0.4}}></div>
-              </div>
-              <div className="relative z-10 p-6 h-full flex flex-col justify-end">
-                <h3 className="text-white text-lg sm:text-xl font-bold mb-2">Açougues</h3>
-                <p className="text-gray-200 text-xs sm:text-sm mb-3">Máquinas robustas para cortes perfeitos, mais produtividade e higiene no dia a dia.</p>
-                <span className="text-white text-xs sm:text-sm font-medium flex items-center">
-                  Ver Mais <ArrowRight className="h-4 w-4 ml-1" />
-                </span>
-              </div>
-            </Link>
-
-            {/* Padarias */}
-            <Link
-              to="/categorias/padaria-confeitaria"
-              className="group relative bg-gradient-to-br from-yellow-600 to-orange-600 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-48 sm:h-56 lg:h-64"
-            >
-              <div className="absolute inset-0">
-                <img
-                  src="/images/padarias.png"
-                  alt="Padarias"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-yellow-900/40"></div>
-              </div>
-              <div className="relative z-10 p-6 h-full flex flex-col justify-end">
-                <h3 className="text-white text-lg sm:text-xl font-bold mb-2">Padarias</h3>
-                <p className="text-gray-200 text-xs sm:text-sm mb-3">Forno e masseiras de alto desempenho para produção rápida, padronizada e de qualidade.</p>
-                <span className="text-white text-xs sm:text-sm font-medium flex items-center">
-                  Ver Mais <ArrowRight className="h-4 w-4 ml-1" />
-                </span>
-              </div>
-            </Link>
-
-            {/* Todas as Linhas */}
-            <Link
-              to="/categorias"
-              className="group relative bg-gradient-to-br from-gray-600 to-gray-700 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-48 sm:h-56 lg:h-64"
-            >
-              <div className="absolute inset-0">
-                <img
-                  src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80"
-                  alt="Todas as Linhas"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gray-900/40"></div>
-              </div>
-              <div className="relative z-10 p-6 h-full flex flex-col justify-end">
-                <h3 className="text-white text-lg sm:text-xl font-bold mb-2">Todas as Linhas</h3>
-                <p className="text-gray-200 text-xs sm:text-sm mb-3">Variedade completa em equipamentos industriais para todos os tipos de negócio.</p>
-                <span className="text-white text-xs sm:text-sm font-medium flex items-center">
-                  Ver Mais <ArrowRight className="h-4 w-4 ml-1" />
-                </span>
-              </div>
-            </Link>
+            {[
+              { title: 'Bar e Restaurante', img: '/images/restaurante.png', link: '/categorias/bar-restaurante', desc: 'Equipamentos que trazem agilidade.' },
+              { title: 'Açougues', img: '/images/açougue.png', link: '/categorias/acougue', desc: 'Máquinas robustas para cortes perfeitos.' },
+              { title: 'Padarias', img: '/images/padarias.png', link: '/categorias/padaria-confeitaria', desc: 'Forno e masseiras de alto desempenho.' },
+              { title: 'Refrigeração Comercial', img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80', link: '/categorias/refrigeracao-comercial', desc: 'Soluções para conservação.' },
+            ].map((item, idx) => (
+              <Link
+                key={idx}
+                to={item.link}
+                className="group marketplace-card rounded-lg overflow-hidden flex flex-col h-full"
+              >
+                <div className="relative h-44 overflow-hidden">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-3 left-4">
+                    <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                  </div>
+                </div>
+                <div className="p-4 bg-white flex-1 flex flex-col">
+                  <p className="text-xs text-gray-600 mb-4 flex-1">{item.desc}</p>
+                  <span className="text-primary text-sm font-bold flex items-center group-hover:underline">
+                    Ver produtos <ArrowRight className="w-3 h-3 ml-1" />
+                  </span>
+                </div>
+              </Link>
+            ))}
           </div>
 
 
@@ -379,59 +361,60 @@ const Home: React.FC = () => {
       {/* Seção Novidades */}
       <section className="py-8 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Novidades</h2>
-            <p className="text-gray-600">Conheça nossos últimos lançamentos</p>
+          <div className="text-center mb-8 sm:mb-10">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <div className="h-1 w-12 bg-gradient-to-r from-orange-500 to-red-600 rounded-full" />
+              <TrendingUp className="w-5 h-5 text-orange-600" />
+              <div className="h-1 w-12 bg-gradient-to-l from-orange-500 to-red-600 rounded-full" />
+            </div>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">Novidades</h2>
+            <p className="text-sm sm:text-base text-gray-600">Conheça nossos últimos lançamentos</p>
           </div>
-          
+
           {/* Loading State */}
           {loadingLatest && (
             <div className="flex justify-center items-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2" style={{borderColor: '#8B0000'}}></div>
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2" style={{ borderColor: '#8B0000' }}></div>
             </div>
           )}
-          
+
           {/* Grid de Novidades */}
           {!loadingLatest && latestProducts && (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
               {latestProducts.map((product, index) => (
-                <div key={product.id} className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden h-full flex flex-col">
-                  <div className="relative">
+                <div key={product.id} className="marketplace-card rounded shadow-sm hover:shadow-md h-full flex flex-col group">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-white p-4">
                     <img
                       src={product.product_images?.[0]?.image_url || product.image_url || 'https://via.placeholder.com/400x300?text=Produto'}
                       alt={product.name}
-                      className="w-full h-32 sm:h-40 lg:h-48 object-contain bg-gray-50"
+                      className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500"
                     />
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-red-600 text-white px-2 sm:px-3 py-1 rounded-full text-xs sm:text-sm font-bold">
+                    <div className="absolute top-2 left-2">
+                      <span className="badge-repal">
                         {index === 0 ? 'NOVO' : index === 1 ? 'LANÇAMENTO' : 'RECENTE'}
                       </span>
                     </div>
                   </div>
-                  <div className="p-4 sm:p-6 flex-1 flex flex-col justify-between">
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-4 line-clamp-2">{product.name}</h3>
-                    <div className="space-y-3">
+                  <div className="p-4 flex-1 flex flex-col">
+                    <h3 className="text-sm sm:text-base font-medium text-gray-800 mb-4 line-clamp-2 min-h-[40px] group-hover:text-primary transition-colors">
+                      {product.name}
+                    </h3>
+                    <div className="mt-auto space-y-2">
                       <Link
                         to={product.slug ? `/produto/${product.slug}` : '#'}
-                        onClick={(e) => {
-                          if (!product.slug) {
-                            console.error('❌ Novidades - Produto sem slug!');
-                            e.preventDefault();
-                          }
-                        }}
-                        className="w-full bg-red-600 text-white px-3 sm:px-4 py-2 rounded-lg font-medium hover:bg-red-700 transition-colors block text-center text-sm sm:text-base"
+                        className="w-full text-center border border-primary text-primary px-2 py-1.5 rounded text-xs sm:text-sm font-bold hover:bg-red-50 transition-colors block"
                       >
                         Ver Detalhes
                       </Link>
-                      <button 
+                      <button
                         onClick={() => addItem({
                           id: product.id.toString(),
                           name: product.name,
                           image: product.product_images?.[0]?.image_url || product.image_url || undefined
                         })}
-                        className="w-full bg-gray-100 text-gray-700 px-3 sm:px-4 py-2 rounded-lg font-medium hover:bg-gray-200 transition-colors border border-gray-300 text-sm sm:text-base"
+                        className="w-full bg-primary text-white px-3 py-1.5 rounded text-xs sm:text-sm font-bold hover:bg-primary-hover shadow-sm transition-all flex items-center justify-center gap-1"
                       >
-                        Incluir na Lista
+                        <Plus className="w-3 h-3" /> Orçamento
                       </button>
                     </div>
                   </div>
@@ -451,7 +434,7 @@ const Home: React.FC = () => {
               <h2 id="heading-refrigeracao-comercial" className="text-3xl sm:text-5xl font-extrabold mb-3 sm:mb-4">Refrigeração Comercial</h2>
               <h2 className="text-xl sm:text-2xl font-bold text-gray-200 mb-4">Potência e eficiência na sua cozinha</h2>
               <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
-                Soluções de refrigeração comercial para restaurantes, padarias, açougues e cozinhas industriais. 
+                Soluções de refrigeração comercial para restaurantes, padarias, açougues e cozinhas industriais.
                 Equipamentos projetados para alta demanda com controle de temperatura preciso, eficiência energética e durabilidade.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6 sm:mb-8">
@@ -479,7 +462,7 @@ const Home: React.FC = () => {
                 Solicite Orçamento
               </Link>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <figure className="group relative">
                 <Link to="/categorias/acougue?sort=name&view=grid&sub=62" aria-label="Ver Balcões Refrigerados na categoria Refrigeração Comercial" className="block">
@@ -491,7 +474,7 @@ const Home: React.FC = () => {
                   <figcaption className="mt-3 text-center font-bold text-sm sm:text-base text-white">Balcões Refrigerados</figcaption>
                 </Link>
               </figure>
-              
+
               <figure className="group relative">
                 <Link to="/categorias/refrigeracao-comercial?sort=name&view=grid&sub=16" aria-label="Ver Câmaras Frias na categoria Refrigeração Comercial" className="block">
                   <img
@@ -527,96 +510,93 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div>
-      {/* Information Tabs Section */}
-      <section className="mt-[10px] py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Tab Navigation */}
-          <div className="flex flex-wrap justify-center mb-8 border-b border-gray-200">
-            <button
-              onClick={() => setActiveTab('sobre')}
-              className={`px-4 sm:px-6 py-3 font-medium text-sm sm:text-base transition-colors border-b-2 ${
-                activeTab === 'sobre'
+        {/* Information Tabs Section */}
+        <section className="mt-[10px] py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Tab Navigation */}
+            <div className="flex flex-wrap justify-center mb-8 border-b border-gray-200">
+              <button
+                onClick={() => setActiveTab('sobre')}
+                className={`px-4 sm:px-6 py-3 font-medium text-sm sm:text-base transition-colors border-b-2 ${activeTab === 'sobre'
                   ? 'text-red-600 border-red-600'
                   : 'text-gray-500 border-transparent hover:text-gray-700'
-              }`}
-            >
-              Sobre a Repal
-            </button>
-            <button
-              onClick={() => setActiveTab('atuacao')}
-              className={`px-4 sm:px-6 py-3 font-medium text-sm sm:text-base transition-colors border-b-2 ${
-                activeTab === 'atuacao'
+                  }`}
+              >
+                Sobre a Repal
+              </button>
+              <button
+                onClick={() => setActiveTab('atuacao')}
+                className={`px-4 sm:px-6 py-3 font-medium text-sm sm:text-base transition-colors border-b-2 ${activeTab === 'atuacao'
                   ? 'text-red-600 border-red-600'
                   : 'text-gray-500 border-transparent hover:text-gray-700'
-              }`}
-            >
-              Área de Atuação
-            </button>
-            <button
-              onClick={() => setActiveTab('diferenciais')}
-              className={`px-4 sm:px-6 py-3 font-medium text-sm sm:text-base transition-colors border-b-2 ${
-                activeTab === 'diferenciais'
+                  }`}
+              >
+                Área de Atuação
+              </button>
+              <button
+                onClick={() => setActiveTab('diferenciais')}
+                className={`px-4 sm:px-6 py-3 font-medium text-sm sm:text-base transition-colors border-b-2 ${activeTab === 'diferenciais'
                   ? 'text-red-600 border-red-600'
                   : 'text-gray-500 border-transparent hover:text-gray-700'
-              }`}
-            >
-              Diferenciais
-            </button>
+                  }`}
+              >
+                Diferenciais
+              </button>
+            </div>
+
+            {/* Tab Content */}
+            <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8">
+              {activeTab === 'sobre' && (
+                <div className="space-y-6">
+                  <h2 className="text-3xl font-bold text-gray-900">Sobre a Repal</h2>
+                  <div className="space-y-4 text-gray-700">
+                    <p>
+                      A Repal nasceu com a missão de simplificar a operação de negócios gastronômicos por meio de equipamentos profissionais confiáveis e peças originais que asseguram alto desempenho. Valorizamos ética, transparência e compromisso com resultados. Nosso histórico é marcado por parcerias duradouras com restaurantes, padarias, açougues, bares, hotéis e cozinhas industriais que exigem produtividade, segurança e qualidade de acabamento em cada preparo.
+                    </p>
+                    <p>
+                      Investimos continuamente em curadoria de marcas reconhecidas, em suporte técnico especializado e em uma experiência de compra consultiva. Assim, entregamos soluções adequadas ao porte da operação, ao fluxo de clientes e ao perfil dos cardápios. Do dimensionamento de frota térmica ao detalhamento de instalação, cada projeto considera eficiência energética, durabilidade e conformidade com normas sanitárias e de segurança.
+                    </p>
+                    <p>
+                      Atuamos com foco regional e nacional, oferecendo atendimento ágil, logística otimizada e acompanhamento pós-venda. Nossa equipe orienta a escolha de equipamentos, organiza cronogramas de implantação e indica práticas de manutenção preventiva, reduzindo paradas e custos operacionais.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'atuacao' && (
+                <div className="space-y-6">
+                  <h2 className="text-3xl font-bold text-gray-900">Área de atuação e localização</h2>
+                  <div className="space-y-4 text-gray-700">
+                    <p>
+                      Atendemos operações gastronômicas em todo o Brasil com ênfase no Sul e Sudeste, mantendo estoques estratégicos para entregas rápidas. Nossa base operacional facilita coletas e envios, e o suporte remoto orienta instalação, configuração e cuidados diários.
+                    </p>
+                    <p>
+                      Em projetos maiores, alinhamos visitas técnicas e integração com fornecedores para garantir que a cozinha opere dentro dos requisitos de fluxo, ergonomia e segurança, respeitando as particularidades de cada nicho, como produção de panificação, corte e processamento de carnes, confeitaria e serviço à la carte.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {activeTab === 'diferenciais' && (
+                <div className="space-y-6">
+                  <h2 className="text-3xl font-bold text-gray-900">Diferenciais competitivos</h2>
+                  <div className="space-y-4 text-gray-700">
+                    <p>
+                      Seleção de equipamentos gastronômicos com garantia de procedência, peças originais e orientação técnica dedicada. Priorizamos eficiência energética, facilidade de higienização, ergonomia e segurança operacional. A consultoria ajuda a prever capacidade instalada e expansão, evitando gargalos.
+                    </p>
+                    <p>
+                      Oferecemos peças e acessórios compatíveis para manutenção ágil e redução de downtime, incluindo componentes de refrigeração, elementos de aquecimento, conjuntos de corte e itens de reposição. O catálogo é atualizado conforme demanda e novas tecnologias.
+                    </p>
+                    <p>
+                      Nosso atendimento integra comunicação clara, prazos realistas e acompanhamento pós-venda, criando uma relação confiável e duradoura.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+            </div>
           </div>
-
-          {/* Tab Content */}
-          <div className="bg-white rounded-lg shadow-lg p-6 sm:p-8">
-            {activeTab === 'sobre' && (
-              <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-gray-900">Sobre a Repal</h2>
-                <div className="space-y-4 text-gray-700">
-                  <p>
-                    A Repal nasceu com a missão de simplificar a operação de negócios gastronômicos por meio de equipamentos profissionais confiáveis e peças originais que asseguram alto desempenho. Valorizamos ética, transparência e compromisso com resultados. Nosso histórico é marcado por parcerias duradouras com restaurantes, padarias, açougues, bares, hotéis e cozinhas industriais que exigem produtividade, segurança e qualidade de acabamento em cada preparo.
-                  </p>
-                  <p>
-                    Investimos continuamente em curadoria de marcas reconhecidas, em suporte técnico especializado e em uma experiência de compra consultiva. Assim, entregamos soluções adequadas ao porte da operação, ao fluxo de clientes e ao perfil dos cardápios. Do dimensionamento de frota térmica ao detalhamento de instalação, cada projeto considera eficiência energética, durabilidade e conformidade com normas sanitárias e de segurança.
-                  </p>
-                  <p>
-                    Atuamos com foco regional e nacional, oferecendo atendimento ágil, logística otimizada e acompanhamento pós-venda. Nossa equipe orienta a escolha de equipamentos, organiza cronogramas de implantação e indica práticas de manutenção preventiva, reduzindo paradas e custos operacionais.
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'atuacao' && (
-              <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-gray-900">Área de atuação e localização</h2>
-                <div className="space-y-4 text-gray-700">
-                  <p>
-                    Atendemos operações gastronômicas em todo o Brasil com ênfase no Sul e Sudeste, mantendo estoques estratégicos para entregas rápidas. Nossa base operacional facilita coletas e envios, e o suporte remoto orienta instalação, configuração e cuidados diários.
-                  </p>
-                  <p>
-                    Em projetos maiores, alinhamos visitas técnicas e integração com fornecedores para garantir que a cozinha opere dentro dos requisitos de fluxo, ergonomia e segurança, respeitando as particularidades de cada nicho, como produção de panificação, corte e processamento de carnes, confeitaria e serviço à la carte.
-                  </p>
-                </div>
-              </div>
-            )}
-
-            {activeTab === 'diferenciais' && (
-              <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-gray-900">Diferenciais competitivos</h2>
-                <div className="space-y-4 text-gray-700">
-                  <p>
-                    Seleção de equipamentos gastronômicos com garantia de procedência, peças originais e orientação técnica dedicada. Priorizamos eficiência energética, facilidade de higienização, ergonomia e segurança operacional. A consultoria ajuda a prever capacidade instalada e expansão, evitando gargalos.
-                  </p>
-                  <p>
-                    Oferecemos peças e acessórios compatíveis para manutenção ágil e redução de downtime, incluindo componentes de refrigeração, elementos de aquecimento, conjuntos de corte e itens de reposição. O catálogo é atualizado conforme demanda e novas tecnologias.
-                  </p>
-                  <p>
-                    Nosso atendimento integra comunicação clara, prazos realistas e acompanhamento pós-venda, criando uma relação confiável e duradoura.
-                  </p>
-                </div>
-              </div>
-            )}
-
-          </div>
-        </div>
-      </section>
+        </section>
 
       </section>
 
@@ -626,7 +606,7 @@ const Home: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             <div className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
               <div className="flex-shrink-0">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center" style={{backgroundColor: '#8B0000'}}>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8B0000' }}>
                   <Truck className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
@@ -637,7 +617,7 @@ const Home: React.FC = () => {
             </div>
             <div className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
               <div className="flex-shrink-0">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center" style={{backgroundColor: '#8B0000'}}>
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8B0000' }}>
                   <Award className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
                 </div>
               </div>
@@ -647,45 +627,89 @@ const Home: React.FC = () => {
               </div>
             </div>
             <div className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-               <div className="flex-shrink-0">
-                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center" style={{backgroundColor: '#8B0000'}}>
-                   <Shield className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
-                 </div>
-               </div>
-               <div className="flex-1 min-w-0">
-                 <div className="text-base sm:text-lg font-bold text-gray-900 leading-tight">Proteção Total</div>
-                 <div className="text-xs sm:text-sm text-gray-600 font-medium leading-tight">Embalagens resistentes contra danos.</div>
-               </div>
-             </div>
-             <div className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-               <div className="flex-shrink-0">
-                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center" style={{backgroundColor: '#8B0000'}}>
-                   <MessageCircle className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
-                 </div>
-               </div>
-               <div className="flex-1 min-w-0">
-                 <div className="text-base sm:text-lg font-bold text-gray-900 leading-tight">Atendimento 24/7</div>
-                 <div className="text-xs sm:text-sm text-gray-600 font-medium leading-tight">Suporte para qualquer situação.</div>
-               </div>
-             </div>
+              <div className="flex-shrink-0">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8B0000' }}>
+                  <Shield className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
+                </div>
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-base sm:text-lg font-bold text-gray-900 leading-tight">Proteção Total</div>
+                <div className="text-xs sm:text-sm text-gray-600 font-medium leading-tight">Embalagens resistentes contra danos.</div>
+              </div>
+            </div>
+            <div className="flex items-center space-x-3 sm:space-x-4 p-3 sm:p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+              <div className="flex-shrink-0">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8B0000' }}>
+                  <MessageCircle className="h-4 w-4 sm:h-6 sm:w-6 text-white" />
+                </div>
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-base sm:text-lg font-bold text-gray-900 leading-tight">Atendimento 24/7</div>
+                <div className="text-xs sm:text-sm text-gray-600 font-medium leading-tight">Suporte para qualquer situação.</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-
+      {/* Features/Benefits Section - Modern Design */}
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: Award,
+                title: 'Qualidade Garantida',
+                description: 'Equipamentos de marcas líderes do mercado',
+                gradient: 'from-red-500 to-orange-500'
+              },
+              {
+                icon: Truck,
+                title: 'Entrega Rápida',
+                description: 'Logística eficiente para todo o Brasil',
+                gradient: 'from-orange-500 to-amber-500'
+              },
+              {
+                icon: MessageCircle,
+                title: 'Suporte Técnico',
+                description: 'Equipe especializada pronta para ajudar',
+                gradient: 'from-amber-500 to-yellow-500'
+              },
+              {
+                icon: Shield,
+                title: 'Compra Segura',
+                description: 'Proteção total em todas as transações',
+                gradient: 'from-yellow-500 to-orange-500'
+              }
+            ].map((feature, i) => (
+              <div
+                key={i}
+                className="group relative bg-white rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-gray-200 hover:-translate-y-2"
+              >
+                <div className={`inline-flex p-4 rounded-xl bg-gradient-to-br ${feature.gradient} mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                  <feature.icon className="w-6 h-6 text-white" />
+                </div>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">{feature.title}</h3>
+                <p className="text-sm text-gray-600">{feature.description}</p>
+                <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${feature.gradient} rounded-b-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Partners/Suppliers Carousel Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
               Nossos Parceiros de Confiança
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto">
               Trabalhamos com as melhores marcas do mercado para oferecer equipamentos de alta qualidade
             </p>
           </div>
-          
+
           {/* Carousel Container */}
           <div className="relative overflow-hidden">
             <div className="flex animate-scroll space-x-12 items-center">
@@ -697,7 +721,7 @@ const Home: React.FC = () => {
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all"
                 />
               </div>
-              
+
               <div className="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <img
                   src="https://d8vlg9z1oftyc.cloudfront.net/siemsen/image/media/5e3b022ac50ab-logo.jpg"
@@ -705,7 +729,7 @@ const Home: React.FC = () => {
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all"
                 />
               </div>
-              
+
               <div className="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <img
                   src="https://www.simecan.com.br/fotos/1/136/Design%20sem%20nome.png"
@@ -713,7 +737,7 @@ const Home: React.FC = () => {
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all"
                 />
               </div>
-              
+
               <div className="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <img
                   src="https://www.sulpack.com.br/img/logo.png"
@@ -721,7 +745,7 @@ const Home: React.FC = () => {
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all"
                 />
               </div>
-              
+
               <div className="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <img
                   src="https://static.wixstatic.com/media/223c21_034535d90b1a4d09843eb98155a1a564~mv2.png/v1/crop/x_0,y_57,w_2282,h_869/fill/w_200,h_76,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/logoRGB_tita-03.png"
@@ -729,7 +753,7 @@ const Home: React.FC = () => {
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all"
                 />
               </div>
-              
+
               <div className="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <img
                   src="https://i.imgur.com/ofWD079.png"
@@ -737,7 +761,7 @@ const Home: React.FC = () => {
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all"
                 />
               </div>
-              
+
               <div className="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <img
                   src="https://i.imgur.com/VGxeoMm.png"
@@ -745,7 +769,7 @@ const Home: React.FC = () => {
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all"
                 />
               </div>
-              
+
               <div className="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <img
                   src="https://www.urano.com.br/wp-content/uploads/2024/06/logo_URANO-1024x239.png"
@@ -753,7 +777,7 @@ const Home: React.FC = () => {
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all"
                 />
               </div>
-              
+
               <div className="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <img
                   src="https://www.cafmaquinas.com.br/public/images/logo-black.png"
@@ -761,7 +785,7 @@ const Home: React.FC = () => {
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all"
                 />
               </div>
-              
+
               <div className="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <img
                   src="https://www.venanciometal.com.br/settings/1785113355577647.webp"
@@ -769,7 +793,7 @@ const Home: React.FC = () => {
                   className="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition-all"
                 />
               </div>
-              
+
               <div className="flex-shrink-0 w-32 h-20 flex items-center justify-center bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <img
                   src="https://images.seeklogo.com/logo-png/26/1/gastromaq-logo-png_seeklogo-267299.png"
@@ -782,29 +806,39 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-12 sm:py-20 text-white" style={{backgroundColor: '#8B0000'}}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-4xl font-bold mb-4 sm:mb-6">
+      {/* CTA Section - Modern Design */}
+      <section className="relative py-16 sm:py-24 overflow-hidden">
+        {/* Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-red-700 via-red-800 to-red-900" />
+
+        {/* Decorative Elements */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-500/10 rounded-full blur-3xl" />
+
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 leading-tight">
             Pronto para revolucionar sua cozinha?
           </h2>
-          <p className="text-base sm:text-xl text-gray-200 mb-6 sm:mb-8 max-w-3xl mx-auto">
-            Entre em contato conosco e descubra como nossos equipamentos podem 
+          <p className="text-base sm:text-lg lg:text-xl text-gray-100 mb-8 sm:mb-10 max-w-2xl mx-auto leading-relaxed">
+            Entre em contato conosco e descubra como nossos equipamentos podem
             transformar seu negócio gastronômico em um verdadeiro sucesso.
           </p>
           <div className="flex justify-center">
             <WhatsAppButton
-              className="text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-base sm:text-lg transition-all duration-300 transform hover:scale-105 inline-flex items-center justify-center space-x-1 sm:space-x-2"
+              className="group relative bg-white text-red-700 px-8 sm:px-10 py-4 sm:py-5 rounded-2xl font-bold text-base sm:text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl inline-flex items-center justify-center space-x-2 sm:space-x-3 overflow-hidden"
               message="Olá! Gostaria de saber mais sobre os equipamentos da Repal."
             >
-              <span>Falar no WhatsApp</span>
-              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
+              <span className="relative z-10">Falar no WhatsApp</span>
+              <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6 relative z-10 group-hover:translate-x-1 transition-transform" />
+
+              {/* Hover Glow Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-100 to-red-100 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </WhatsAppButton>
           </div>
         </div>
       </section>
 
- 
+
     </div>
   );
 };

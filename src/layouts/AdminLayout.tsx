@@ -1,14 +1,14 @@
 import React, { Suspense } from 'react';
 import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom';
-import { 
-  Package, 
-  X, 
-  BarChart3, 
-  Tag, 
-  Image, 
-  Settings, 
-  LogOut, 
-  Menu, 
+import {
+  Package,
+  X,
+  BarChart3,
+  Tag,
+  Image,
+  Settings,
+  LogOut,
+  Menu,
   Home,
   Users,
   Flag,
@@ -33,7 +33,7 @@ const AdminLayout: React.FC = () => {
     const fetchNewLeadsCount = async () => {
       // Use RPC to avoid 'leads' keyword in URL (AdBlock workaround)
       const { data, error } = await supabase.rpc('get_new_contacts_count');
-      
+
       if (!error && typeof data === 'number') {
         setNewLeadsCount(data);
       } else {
@@ -42,7 +42,7 @@ const AdminLayout: React.FC = () => {
           .from(table('leads'))
           .select('*', { count: 'exact', head: true })
           .eq('status', 'novo');
-          
+
         if (!countError && count !== null) {
           setNewLeadsCount(count);
         }
@@ -50,12 +50,12 @@ const AdminLayout: React.FC = () => {
     };
 
     fetchNewLeadsCount();
-    
+
     // Subscribe to changes
     const subscription = supabase
       .channel('leads_count_changes')
-      .on('postgres_changes', 
-        { event: '*', schema: 'public', table: table('leads') }, 
+      .on('postgres_changes',
+        { event: '*', schema: 'public', table: table('leads') },
         () => {
           fetchNewLeadsCount();
         }
@@ -68,82 +68,82 @@ const AdminLayout: React.FC = () => {
   }, []);
 
   const navigationItems = [
-    { 
-      id: 'dashboard', 
-      label: 'Dashboard', 
-      icon: BarChart3, 
+    {
+      id: 'dashboard',
+      label: 'Dashboard',
+      icon: BarChart3,
       path: '/admin',
       description: 'Visão geral do sistema',
       badge: null
     },
-    { 
-      id: 'products', 
-      label: 'Produtos', 
-      icon: Package, 
+    {
+      id: 'products',
+      label: 'Produtos',
+      icon: Package,
       path: '/admin/products',
       description: 'Gerenciar produtos',
       badge: null
     },
-    { 
-      id: 'adjustments', 
-      label: 'Reajustes', 
-      icon: DollarSign, 
+    {
+      id: 'adjustments',
+      label: 'Reajustes',
+      icon: DollarSign,
       path: '/admin/products/adjustments',
       description: 'Reajuste em massa',
       badge: null
     },
-    { 
-      id: 'categories', 
-      label: 'Categorias', 
-      icon: Tag, 
+    {
+      id: 'categories',
+      label: 'Categorias',
+      icon: Tag,
       path: '/admin/categories',
       description: 'Organizar categorias',
       badge: null
     },
-    { 
-      id: 'brands', 
-      label: 'Marcas', 
-      icon: Flag, 
+    {
+      id: 'brands',
+      label: 'Marcas',
+      icon: Flag,
       path: '/admin/brands',
       description: 'Gerenciar marcas',
       badge: null
     },
-    { 
-      id: 'banners', 
-      label: 'Banners', 
-      icon: Image, 
+    {
+      id: 'banners',
+      label: 'Banners',
+      icon: Image,
       path: '/admin/banners',
       description: 'Controle de banners',
       badge: null
     },
-    { 
-      id: 'promotions', 
-      label: 'Promoções', 
-      icon: Tag, 
+    {
+      id: 'promotions',
+      label: 'Promoções',
+      icon: Tag,
       path: '/admin/promotions',
       description: 'Gerenciar promoções',
       badge: null
     },
-    { 
-      id: 'leads', 
-      label: 'Leads', 
-      icon: MessageSquare, 
+    {
+      id: 'leads',
+      label: 'Leads',
+      icon: MessageSquare,
       path: '/admin/leads',
       description: 'Gerenciar leads',
       badge: newLeadsCount > 0 ? newLeadsCount.toString() : null
     },
-    { 
-      id: 'users', 
-      label: 'Usuários', 
-      icon: Users, 
+    {
+      id: 'users',
+      label: 'Usuários',
+      icon: Users,
       path: '/admin/users',
       description: 'Controle de acesso',
       badge: null
     },
-    { 
-      id: 'settings', 
-      label: 'Configurações', 
-      icon: Settings, 
+    {
+      id: 'settings',
+      label: 'Configurações',
+      icon: Settings,
       path: '/admin/settings',
       description: 'Configurações do sistema',
       badge: null
@@ -175,33 +175,39 @@ const AdminLayout: React.FC = () => {
     <div className="min-h-screen bg-gray-50 flex">
       {/* Overlay para mobile */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
       )}
 
       {/* Sidebar */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      } lg:translate-x-0 lg:static lg:inset-0`}>
-        
-        {/* Header da Sidebar */}
-        <div className="flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6 border-b border-gray-200 bg-gradient-to-r from-blue-600 to-blue-700">
-          <Link to="/admin" className="flex items-center space-x-2 sm:space-x-3">
-            <div className="w-6 h-6 sm:w-8 sm:h-8 bg-white rounded-lg flex items-center justify-center">
-              <Shield className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
+      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        } lg:translate-x-0 lg:static lg:inset-0`}>
+
+        {/* Header da Sidebar - Modern Design */}
+        <div className="relative flex items-center justify-between h-16 sm:h-18 px-4 sm:px-6 border-b border-gray-200/50 bg-gradient-to-br from-red-700 via-red-800 to-red-900 overflow-hidden">
+          {/* Decorative Elements */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-2xl" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-red-500/10 rounded-full blur-xl" />
+
+          <Link to="/admin" className="relative flex items-center space-x-2 sm:space-x-3 group">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 bg-white rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <Shield className="h-5 w-5 sm:h-6 sm:w-6 text-red-700" />
             </div>
-            <span className="text-white font-bold text-base sm:text-lg">Admin Panel</span>
+            <div>
+              <span className="text-white font-bold text-base sm:text-lg block">Admin Panel</span>
+              <span className="text-red-100 text-xs hidden sm:block">Painel de Controle</span>
+            </div>
           </Link>
           <button
             onClick={() => setSidebarOpen(false)}
-            className="lg:hidden p-1 sm:p-2 rounded-md text-white hover:bg-white hover:bg-opacity-20 transition-colors"
+            className="relative lg:hidden p-2 rounded-xl text-white hover:bg-white/20 transition-all duration-300 hover:scale-110"
           >
-            <X className="h-4 w-4 sm:h-5 sm:w-5" />
+            <X className="h-5 w-5" />
           </button>
         </div>
-        
+
         {/* Container Principal da Sidebar - Altura Automática */}
         <div className="flex flex-col h-auto max-h-screen w-64">
           {/* Navegação com Scroll */}
@@ -210,101 +216,107 @@ const AdminLayout: React.FC = () => {
               {navigationItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
-                
+
                 return (
                   <button
                     key={item.id}
                     onClick={() => handleNavigation(item.path)}
-                    className={`w-full flex items-center justify-between px-3 py-3 text-sm font-medium rounded-lg transition-all duration-200 group ${
-                      isActive
-                        ? 'bg-blue-50 text-blue-700 border border-blue-200 shadow-sm'
-                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                    }`}
+                    className={`relative w-full flex items-center justify-between px-4 py-3.5 text-sm font-medium rounded-xl transition-all duration-300 group overflow-hidden ${isActive
+                        ? 'bg-gradient-to-r from-red-50 to-orange-50 text-red-700 shadow-md border border-red-200/50'
+                        : 'text-gray-600 hover:bg-gradient-to-r hover:from-gray-50 hover:to-gray-100 hover:text-gray-900 hover:shadow-sm'
+                      }`}
                   >
-                    <div className="flex items-center space-x-3">
-                      <div className={`p-2 rounded-lg ${
-                        isActive ? 'bg-blue-100 text-blue-600' : 'text-gray-400 group-hover:text-gray-600'
-                      }`}>
+                    {/* Active Indicator */}
+                    {isActive && (
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-red-600 to-orange-500 rounded-r-full" />
+                    )}
+
+                    <div className="flex items-center space-x-3 flex-1">
+                      <div className={`p-2.5 rounded-xl transition-all duration-300 ${isActive
+                          ? 'bg-gradient-to-br from-red-600 to-orange-500 text-white shadow-lg'
+                          : 'bg-gray-100 text-gray-500 group-hover:bg-white group-hover:text-red-600 group-hover:shadow-md'
+                        }`}>
                         <Icon className="h-4 w-4" />
                       </div>
                       <div className="text-left flex-1 min-w-0">
-                        <p className="font-medium truncate">{item.label}</p>
-                        <p className="text-xs opacity-75 truncate">{item.description}</p>
+                        <p className="font-semibold truncate">{item.label}</p>
+                        <p className="text-xs opacity-70 truncate">{item.description}</p>
                       </div>
                     </div>
-                    
+
                     <div className="flex items-center space-x-2">
                       {item.badge && (
-                        <span className="bg-red-100 text-red-800 text-xs font-medium px-2 py-1 rounded-full">
+                        <span className="bg-gradient-to-r from-red-600 to-orange-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-md animate-pulse">
                           {item.badge}
                         </span>
                       )}
-                      <ChevronRight className={`h-4 w-4 transition-transform ${
-                        isActive ? 'transform rotate-90 text-blue-600' : 'text-gray-400'
-                      }`} />
+                      <ChevronRight className={`h-4 w-4 transition-all duration-300 ${isActive ? 'transform rotate-90 text-red-600' : 'text-gray-400 group-hover:text-red-600 group-hover:translate-x-1'
+                        }`} />
                     </div>
                   </button>
                 );
               })}
             </div>
           </nav>
-          
+
           {/* Footer da Sidebar */}
-          <div className="border-t border-gray-200 p-3 sm:p-4 mt-auto">
-          <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg p-3 mb-3">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                <User className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">
-                  {user?.email || 'Administrador'}
-                </p>
-                <p className="text-xs text-gray-500">Administrador</p>
+          <div className="border-t border-gray-200 p-4 mt-auto space-y-3">
+            {/* User Profile Card */}
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-4 border border-gray-200/50 shadow-sm">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-red-600 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                  <User className="h-5 w-5 text-white" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-bold text-gray-900 truncate">
+                    {user?.email || 'Administrador'}
+                  </p>
+                  <p className="text-xs text-gray-500 font-medium">Administrador</p>
+                </div>
               </div>
             </div>
+
+            {/* Action Buttons */}
+            <Link
+              to="/"
+              className="w-full flex items-center justify-center px-4 py-3 text-sm font-bold text-green-700 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-xl hover:from-green-100 hover:to-emerald-100 hover:shadow-md transition-all duration-300 group"
+            >
+              <Home className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
+              Voltar ao Site
+            </Link>
+
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center justify-center px-4 py-3 text-sm font-bold text-red-700 bg-gradient-to-r from-red-50 to-orange-50 border border-red-200 rounded-xl hover:from-red-100 hover:to-orange-100 hover:shadow-md transition-all duration-300 group"
+            >
+              <LogOut className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
+              Sair do Sistema
+            </button>
           </div>
-          
-          {/* Link para voltar ao site */}
-          <Link
-            to="/"
-            className="w-full flex items-center justify-center px-3 py-2 text-sm font-medium text-green-600 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 hover:text-green-700 transition-all duration-200 group mb-2"
-          >
-            <Home className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
-            Voltar ao Site
-          </Link>
-          
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center justify-center px-3 py-2 text-sm font-medium text-red-600 bg-red-50 border border-red-200 rounded-lg hover:bg-red-100 hover:text-red-700 transition-all duration-200 group"
-          >
-            <LogOut className="h-4 w-4 mr-2 group-hover:scale-110 transition-transform" />
-            Sair do Sistema
-          </button>
-        </div>
         </div>
       </div>
 
       {/* Conteúdo Principal */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Header Superior */}
-        <header className="bg-white shadow-sm border-b border-gray-200">
-          <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
+        <header className="bg-gradient-to-r from-white to-gray-50 shadow-md border-b border-gray-200">
+          <div className="flex items-center justify-between px-4 sm:px-6 py-4">
             {/* Lado Esquerdo */}
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => setSidebarOpen(true)}
-                className="lg:hidden p-1 sm:p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 transition-colors"
+                className="lg:hidden p-2 rounded-xl text-gray-400 hover:text-red-600 hover:bg-red-50 transition-all duration-300 hover:scale-110"
               >
-                <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
+                <Menu className="h-5 w-5" />
               </button>
-              
-              <div className="flex items-center space-x-1 sm:space-x-2">
-                <Home className="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" />
-                <span className="text-gray-500 text-sm sm:text-base">/</span>
-                <span className="text-gray-900 font-medium text-sm sm:text-base">Admin</span>
-                <span className="text-gray-500 text-sm sm:text-base">/</span>
-                <span className="text-blue-600 font-medium text-sm sm:text-base">
+
+              {/* Modern Breadcrumb */}
+              <div className="flex items-center space-x-2 bg-white/70 backdrop-blur-sm rounded-full px-4 py-2 shadow-sm border border-gray-200/50">
+                <Home className="h-4 w-4 text-gray-400" />
+                <span className="text-gray-400">/</span>
+                <span className="text-gray-700 font-medium text-sm">Admin</span>
+                <span className="text-gray-400">/</span>
+                <span className="text-red-700 font-bold text-sm">
                   {currentPage?.label || 'Dashboard'}
                 </span>
               </div>
@@ -317,17 +329,21 @@ const AdminLayout: React.FC = () => {
           <div className="p-4 sm:p-6">
             {/* Título da Página */}
             {currentPage && (
-              <div className="mb-4 sm:mb-6">
-                <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 flex items-center space-x-2 sm:space-x-3">
-                  <div className="p-1 sm:p-2 bg-blue-100 rounded-lg">
-                    <currentPage.icon className="h-5 w-5 sm:h-6 sm:w-6 text-blue-600" />
+              <div className="mb-6 sm:mb-8">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="h-1 w-12 bg-gradient-to-r from-red-600 to-orange-500 rounded-full" />
+                  <div className="p-2.5 bg-gradient-to-br from-red-600 to-orange-500 rounded-2xl shadow-lg">
+                    <currentPage.icon className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
                   </div>
-                  <span>{currentPage.label}</span>
+                  <div className="h-1 w-12 bg-gradient-to-l from-red-600 to-orange-500 rounded-full" />
+                </div>
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+                  {currentPage.label}
                 </h1>
-                <p className="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">{currentPage.description}</p>
+                <p className="text-gray-600 text-sm sm:text-base leading-relaxed">{currentPage.description}</p>
               </div>
             )}
-            
+
             {/* Conteúdo com Suspense */}
             <Suspense fallback={
               <div className="flex items-center justify-center h-64">

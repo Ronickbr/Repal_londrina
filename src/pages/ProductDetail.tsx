@@ -24,7 +24,7 @@ const ProductDetail: React.FC = () => {
   const { state: budgetState, addItem } = useBudget()
   const { isAuthenticated } = useAuth()
   const [isAddedToBudget, setIsAddedToBudget] = useState(false)
-  
+
   // Close modal on escape key
   React.useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -102,9 +102,9 @@ const ProductDetail: React.FC = () => {
 
   const productImages = product.product_images?.sort((a, b) => a.sort_order - b.sort_order) || []
   const mainImageUrl = (product as { image?: string }).image || product.image_url
-  
+
   const images = [...productImages]
-  
+
   // Adiciona a imagem principal se ela existir e não estiver na lista de imagens adicionais
   if (mainImageUrl && !images.some(img => img.image_url === mainImageUrl)) {
     images.unshift({
@@ -196,7 +196,7 @@ const ProductDetail: React.FC = () => {
           ))}
         </div>
       )}
-      
+
       <div className="container mx-auto px-4 py-6 max-w-7xl">
         {/* Breadcrumb */}
         <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-8 bg-white/70 backdrop-blur-sm rounded-full px-6 py-3 shadow-sm border border-gray-200/50">
@@ -205,8 +205,8 @@ const ProductDetail: React.FC = () => {
           {product.category && typeof product.category === 'object' && (
             <>
               <span className="text-gray-400">/</span>
-              <Link 
-                to={`/categorias/${product.category.slug}`} 
+              <Link
+                to={`/categorias/${product.category.slug}`}
                 className="hover:text-[#8B0000] transition-colors duration-200 font-medium"
               >
                 {product.category.name}
@@ -242,7 +242,7 @@ const ProductDetail: React.FC = () => {
                       className="w-full h-full object-contain object-center transition-transform duration-500 group-hover:scale-105 max-h-[400px] sm:max-h-[500px] cursor-pointer"
                       onClick={() => openModal(currentImageIndex)}
                     />
-                    <div 
+                    <div
                       className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300 flex items-center justify-center cursor-pointer"
                       onClick={() => openModal(currentImageIndex)}
                     >
@@ -251,7 +251,7 @@ const ProductDetail: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  
+
                   {/* Navigation Arrows */}
                   {images.length > 1 && (
                     <>
@@ -269,7 +269,7 @@ const ProductDetail: React.FC = () => {
                       </button>
                     </>
                   )}
-                  
+
                   {/* Image Counter */}
                   {images.length > 1 && (
                     <div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 bg-white/90 backdrop-blur-sm text-gray-800 px-2 sm:px-4 py-1 sm:py-2 rounded-full text-xs sm:text-sm font-medium shadow-lg border border-gray-200/50">
@@ -298,26 +298,24 @@ const ProductDetail: React.FC = () => {
                     <button
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                        index === currentImageIndex
+                      className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${index === currentImageIndex
                           ? 'bg-primary scale-125 shadow-lg'
                           : 'bg-gray-300 hover:bg-gray-400 hover:scale-110'
-                      }`}
+                        }`}
                     />
                   ))}
                 </div>
-                
+
                 {/* Thumbnail Gallery */}
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-2 sm:gap-3">
                   {images.map((image, index: number) => (
                     <button
                       key={image.id}
                       onClick={() => setCurrentImageIndex(index)}
-                      className={`relative h-16 sm:h-20 lg:h-24 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all duration-300 hover:scale-105 group flex items-center justify-center ${
-                        index === currentImageIndex
+                      className={`relative h-16 sm:h-20 lg:h-24 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all duration-300 hover:scale-105 group flex items-center justify-center ${index === currentImageIndex
                           ? 'border-primary ring-2 ring-primary ring-opacity-30 shadow-lg'
                           : 'border-gray-200 hover:border-primary/50 shadow-sm hover:shadow-md'
-                      }`}
+                        }`}
                     >
                       <img
                         src={image.image_url}
@@ -359,11 +357,11 @@ const ProductDetail: React.FC = () => {
               <h1 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-3 sm:mb-4 leading-tight">
                 {product.name}
 
-              {isAuthenticated && product.price !== undefined && (
-                <div className="text-2xl sm:text-3xl font-bold text-primary mb-3 sm:mb-4">
-                  {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(product.price)}
-                </div>
-              )}
+                {isAuthenticated && product.price !== undefined && (
+                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-3 sm:mb-4">
+                    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(product.price)}
+                  </div>
+                )}
 
               </h1>
               <h2 className="sr-only">Descrição do Produto</h2>
@@ -386,7 +384,7 @@ const ProductDetail: React.FC = () => {
                 <span className="bg-gradient-to-r from-[#333333] to-[#555555] bg-clip-text text-transparent">Diferenciais do Produto</span>
                 <div className="flex-1 h-px bg-gradient-to-r from-primary/30 to-transparent"></div>
               </h2>
-              
+
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
                 {/* Card 1 - Garantia */}
                 <div className="group relative text-center p-6 md:p-8 bg-gradient-to-br from-red-50/95 via-red-100/90 to-red-200/85 rounded-2xl shadow-lg border border-red-300/50 hover:shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 cursor-pointer overflow-hidden">
@@ -430,7 +428,7 @@ const ProductDetail: React.FC = () => {
                   <div className="absolute bottom-0 right-0 w-6 h-6 md:w-8 md:h-8 bg-gradient-to-tl from-blue-200/30 to-transparent rounded-tl-full"></div>
                 </div>
               </div>
-              
+
               {/* Decorative elements - positioned safely */}
               <div className="absolute -top-2 -right-2 w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-[#8B0000]/3 to-[#000080]/3 rounded-full blur-xl pointer-events-none"></div>
               <div className="absolute -bottom-2 -left-2 w-12 h-12 md:w-16 md:h-16 bg-gradient-to-tr from-[#25D366]/3 to-[#000080]/3 rounded-full blur-lg pointer-events-none"></div>
@@ -442,24 +440,23 @@ const ProductDetail: React.FC = () => {
                 <div className="w-1 h-6 bg-gradient-to-b from-[#25D366] to-[#20B858] rounded-full"></div>
                 <span>Entre em Contato</span>
               </h3>
-              
+
               <WhatsAppButton
                 className="w-full bg-gradient-to-r from-green-700 to-green-600 text-white py-4 px-6 rounded-xl font-bold hover:from-green-800 hover:to-green-700 transition-all duration-300 flex items-center justify-center space-x-3 text-lg shadow-lg hover:shadow-xl hover:scale-105 transform"
                 message={whatsappMessage}
               >
-                
+
                 <span>Solicitar Orçamento</span>
               </WhatsAppButton>
-              
+
               <div className="grid grid-cols-1 gap-4">
                 <button
                   onClick={addToBudget}
                   disabled={isAddedToBudget}
-                  className={`py-3 px-4 rounded-xl font-bold transition-all duration-300 text-center shadow-md hover:shadow-lg hover:scale-105 transform flex items-center justify-center space-x-2 ${
-                    isAddedToBudget
+                  className={`py-3 px-4 rounded-xl font-bold transition-all duration-300 text-center shadow-md hover:shadow-lg hover:scale-105 transform flex items-center justify-center space-x-2 ${isAddedToBudget
                       ? 'bg-green-600 text-white cursor-not-allowed'
                       : 'border-2 border-[#8B0000] text-[#8B0000] hover:bg-[#8B0000] hover:text-white'
-                  }`}
+                    }`}
                 >
                   {isAddedToBudget ? (
                     <>
@@ -474,7 +471,7 @@ const ProductDetail: React.FC = () => {
                   )}
                 </button>
               </div>
-              
+
               <div className="mt-4 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200">
                 <div className="flex items-center justify-center space-x-4 text-sm text-gray-600">
                   <div className="flex items-center space-x-1">
@@ -500,7 +497,7 @@ const ProductDetail: React.FC = () => {
                 <div className="w-1 h-6 bg-gradient-to-b from-[#8B0000] to-[#000080] rounded-full"></div>
                 <span>Descrição do Produto</span>
               </h3>
-              <SafeHTML 
+              <SafeHTML
                 className="text-gray-700 leading-relaxed text-base prose prose-gray max-w-none"
                 html={product.description}
               />
@@ -516,7 +513,7 @@ const ProductDetail: React.FC = () => {
                 <div className="w-1 h-6 bg-gradient-to-b from-[#000080] to-[#8B0000] rounded-full"></div>
                 <span>Especificações Técnicas</span>
               </h3>
-              <SafeHTML 
+              <SafeHTML
                 className="text-gray-700 leading-relaxed text-base prose prose-gray max-w-none"
                 html={product.specifications}
               />
@@ -531,7 +528,7 @@ const ProductDetail: React.FC = () => {
               {/* Frete Rápido e Seguro */}
               <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{backgroundColor: '#8B0000'}}>
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8B0000' }}>
                     <Truck className="h-6 w-6 text-white" />
                   </div>
                 </div>
@@ -544,7 +541,7 @@ const ProductDetail: React.FC = () => {
               {/* Padrão Profissional */}
               <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{backgroundColor: '#8B0000'}}>
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8B0000' }}>
                     <Award className="h-6 w-6 text-white" />
                   </div>
                 </div>
@@ -557,7 +554,7 @@ const ProductDetail: React.FC = () => {
               {/* Proteção Total */}
               <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{backgroundColor: '#8B0000'}}>
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8B0000' }}>
                     <Shield className="h-6 w-6 text-white" />
                   </div>
                 </div>
@@ -570,7 +567,7 @@ const ProductDetail: React.FC = () => {
               {/* Atendimento 24/7 */}
               <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{backgroundColor: '#8B0000'}}>
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8B0000' }}>
                     <MessageCircle className="h-6 w-6 text-white" />
                   </div>
                 </div>
@@ -587,15 +584,20 @@ const ProductDetail: React.FC = () => {
         {similarProducts && similarProducts.length > 0 && (
           <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100 border-t">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl font-bold text-[#333333] mb-4">
+              <div className="text-center mb-10">
+                <div className="flex items-center justify-center gap-3 mb-3">
+                  <div className="h-1 w-12 bg-gradient-to-r from-red-600 to-orange-500 rounded-full" />
+                  <Star className="w-5 h-5 text-red-600 fill-red-600" />
+                  <div className="h-1 w-12 bg-gradient-to-l from-red-600 to-orange-500 rounded-full" />
+                </div>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
                   Produtos Relacionados
                 </h2>
-                <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+                <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
                   Confira outros produtos da mesma categoria que podem te interessar
                 </p>
               </div>
-              
+
               {loadingSimilar ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                   {[...Array(4)].map((_, i) => (
@@ -617,7 +619,7 @@ const ProductDetail: React.FC = () => {
                   ))}
                 </div>
               )}
-              
+
               <div className="text-center mt-12">
                 <Link
                   to={`/categorias/${product.category?.slug}`}
@@ -642,7 +644,7 @@ const ProductDetail: React.FC = () => {
               >
                 <X className="h-6 w-6" />
               </button>
-              
+
               {/* Modal Image */}
               <div className="relative bg-white rounded-2xl overflow-hidden shadow-2xl">
                 <img
@@ -650,7 +652,7 @@ const ProductDetail: React.FC = () => {
                   alt={(images[modalImageIndex] as { alt_text?: string })?.alt_text || product.name}
                   className="w-full max-h-[80vh] object-contain"
                 />
-                
+
                 {/* Navigation Arrows */}
                 {images.length > 1 && (
                   <>
@@ -668,7 +670,7 @@ const ProductDetail: React.FC = () => {
                     </button>
                   </>
                 )}
-                
+
                 {/* Image Counter */}
                 {images.length > 1 && (
                   <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/90 backdrop-blur-sm text-gray-800 px-6 py-3 rounded-full text-lg font-medium shadow-lg">
@@ -676,7 +678,7 @@ const ProductDetail: React.FC = () => {
                   </div>
                 )}
               </div>
-              
+
               {/* Modal Thumbnails */}
               {images.length > 1 && (
                 <div className="mt-4 flex justify-center space-x-2 overflow-x-auto pb-2">
@@ -684,11 +686,10 @@ const ProductDetail: React.FC = () => {
                     <button
                       key={image.id}
                       onClick={() => setModalImageIndex(index)}
-                      className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-300 hover:scale-105 ${
-                        index === modalImageIndex
+                      className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-300 hover:scale-105 ${index === modalImageIndex
                           ? 'border-[#8B0000] ring-2 ring-[#8B0000] ring-opacity-50 shadow-lg'
                           : 'border-white/50 hover:border-white shadow-md'
-                      }`}
+                        }`}
                     >
                       <img
                         src={image.image_url}
