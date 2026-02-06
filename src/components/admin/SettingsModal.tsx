@@ -11,13 +11,13 @@ interface SettingsModalProps {
   loading: boolean;
 }
 
-const SettingsModal: React.FC<SettingsModalProps> = ({ 
-  show, 
-  onClose, 
-  settings, 
-  onSave, 
-  onChange, 
-  loading 
+const SettingsModal: React.FC<SettingsModalProps> = ({
+  show,
+  onClose,
+  settings,
+  onSave,
+  onChange,
+  loading
 }) => {
   const defaultSettings: SiteSettings = {
     site_name: '',
@@ -39,7 +39,10 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     maintenance_mode: false,
     allow_robots: true,
     primary_color: '#dc2626',
-    secondary_color: '#7c2d12'
+    secondary_color: '#7c2d12',
+    meta_robots: 'index, follow',
+    canonical_url: '',
+    schema_markup: ''
   };
 
   const [formData, setFormData] = useState<SiteSettings>(() => ({
@@ -163,6 +166,36 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     onChange={(e) => handleInputChange('meta_keywords', e.target.value)}
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
                     placeholder="palavra1, palavra2, palavra3"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Meta Robots</label>
+                  <input
+                    type="text"
+                    value={formData.meta_robots}
+                    onChange={(e) => handleInputChange('meta_robots', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                    placeholder="index, follow"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">URL Canonical</label>
+                  <input
+                    type="text"
+                    value={formData.canonical_url}
+                    onChange={(e) => handleInputChange('canonical_url', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                    placeholder="https://exemplo.com/pagina"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Schema JSON-LD</label>
+                  <textarea
+                    value={formData.schema_markup}
+                    onChange={(e) => handleInputChange('schema_markup', e.target.value)}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                    rows={4}
+                    placeholder='{"@context": "https://schema.org", ...}'
                   />
                 </div>
               </div>

@@ -67,6 +67,7 @@ interface SEO {
   sitemap_enabled?: boolean;
   canonical_url?: string;
   sitemap_xml?: string;
+  schema_markup?: string;
 }
 
 interface Store {
@@ -144,7 +145,8 @@ const SettingsPage: React.FC = () => {
       favicon_url: nested.site_info?.favicon || '',
       instagram_account: nested.social_media?.instagram || '',
       whatsapp_number: nested.social_media?.whatsapp || '',
-      
+      schema_markup: nested.seo?.schema_markup || '',
+
       // Default values for fields not yet in nested structure
       cache_enabled: false,
       compress_images: false,
@@ -171,6 +173,7 @@ const SettingsPage: React.FC = () => {
         meta_keywords: flat.meta_keywords,
         robots_txt: flat.meta_robots,
         canonical_url: flat.canonical_url,
+        schema_markup: flat.schema_markup,
       },
       integrations: {
         ...formData.integrations,
@@ -298,7 +301,7 @@ const SettingsPage: React.FC = () => {
 
       const loadedSettings = data || {};
       const mergedSettings = mergeWithDefaults(loadedSettings);
-      
+
       setSettings(mergedSettings);
       setFormData(mergedSettings);
     } catch (error) {
@@ -312,7 +315,7 @@ const SettingsPage: React.FC = () => {
 
   const mergeWithDefaults = (settings: SiteSettings): SiteSettings => {
     const merged = { ...settings };
-    
+
     Object.keys(defaultValues).forEach(key => {
       const sectionKey = key as keyof typeof defaultValues;
       merged[sectionKey] = {
@@ -329,7 +332,7 @@ const SettingsPage: React.FC = () => {
     delete newErrors[sectionKey];
 
     const section = formData[sectionKey as keyof SiteSettings] as any;
-    
+
     switch (sectionKey) {
       case 'site_info':
         if (section?.name && section.name.length > 100) {
@@ -339,7 +342,7 @@ const SettingsPage: React.FC = () => {
           newErrors[sectionKey] = 'URL inválida';
         }
         break;
-      
+
       case 'contact':
         if (section?.email && !isValidEmail(section.email)) {
           newErrors[sectionKey] = 'Email inválido';
@@ -348,7 +351,7 @@ const SettingsPage: React.FC = () => {
           newErrors[sectionKey] = 'Telefone inválido';
         }
         break;
-      
+
       case 'seo':
         if (section?.meta_title && section.meta_title.length > 60) {
           newErrors[sectionKey] = 'Meta título não pode ter mais de 60 caracteres';
@@ -430,13 +433,13 @@ const SettingsPage: React.FC = () => {
           .update(settingsToSave)
           .eq('id', settings.id);
         error = result.error;
-        
+
       } else {
         const result = await supabase
           .from(table('site_settings'))
           .insert([{ ...settingsToSave, created_at: new Date().toISOString() }]);
         error = result.error;
-        
+
       }
 
       if (error) throw error;
@@ -598,12 +601,12 @@ const SettingsPage: React.FC = () => {
     switch (sectionKey) {
       case 'site_info':
         return (
-          <SettingsManager 
-            siteSettings={flattenSettings(formData)} 
-            onEditSettings={() => setShowModal(true)} 
+          <SettingsManager
+            siteSettings={flattenSettings(formData)}
+            onEditSettings={() => setShowModal(true)}
           />
         );
-      
+
       case 'stores':
         return (
           <div className="space-y-6">
@@ -673,13 +676,12 @@ const SettingsPage: React.FC = () => {
                         <div className="flex-1">
                           <div className="flex items-center">
                             <h4 className="text-lg font-medium text-gray-900">{store.name}</h4>
-                            <span className={`ml-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                              store.active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                            }`}>
+                            <span className={`ml-3 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${store.active ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                              }`}>
                               {store.active ? 'Ativa' : 'Inativa'}
                             </span>
                           </div>
-                          
+
                           <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-500">
                             {store.whatsapp_number && (
                               <div className="flex items-center">
@@ -707,7 +709,7 @@ const SettingsPage: React.FC = () => {
                             )}
                           </div>
                         </div>
-                        
+
                         <div className="ml-6 flex items-center space-x-2">
                           <button
                             onClick={() => handleStoreEdit(store)}
@@ -894,7 +896,7 @@ const SettingsPage: React.FC = () => {
             )}
           </div>
         );
-      
+
       default:
         return <div>Seção não implementada</div>;
     }
@@ -924,7 +926,7 @@ const SettingsPage: React.FC = () => {
       <div className="p-6">
         <div className="bg-red-50 border border-red-200 text-red-800 p-4 rounded-lg">
           <p>{errors.general}</p>
-          <button 
+          <button
             onClick={fetchSettings}
             className="mt-2 text-red-600 hover:text-red-800 underline"
           >
@@ -967,11 +969,10 @@ const SettingsPage: React.FC = () => {
                 <li key={section.key}>
                   <button
                     onClick={() => setActiveSection(section.key)}
-                    className={`w-full flex items-center px-3 py-2 text-left rounded-md transition-colors ${
-                      activeSection === section.key
-                        ? 'bg-red-100 text-red-700 border-r-2 border-red-700'
-                        : 'text-gray-600 hover:bg-gray-100'
-                    }`}
+                    className={`w-full flex items-center px-3 py-2 text-left rounded-md transition-colors ${activeSection === section.key
+                      ? 'bg-red-100 text-red-700 border-r-2 border-red-700'
+                      : 'text-gray-600 hover:bg-gray-100'
+                      }`}
                   >
                     <span className="mr-3">{section.icon}</span>
                     <div className="flex-1 min-w-0">
@@ -985,11 +986,10 @@ const SettingsPage: React.FC = () => {
               <li>
                 <button
                   onClick={() => setActiveSection('stores')}
-                  className={`w-full flex items-center px-3 py-2 text-left rounded-md transition-colors ${
-                    activeSection === 'stores'
-                      ? 'bg-red-100 text-red-700 border-r-2 border-red-700'
-                      : 'text-gray-600 hover:bg-gray-100'
-                  }`}
+                  className={`w-full flex items-center px-3 py-2 text-left rounded-md transition-colors ${activeSection === 'stores'
+                    ? 'bg-red-100 text-red-700 border-r-2 border-red-700'
+                    : 'text-gray-600 hover:bg-gray-100'
+                    }`}
                 >
                   <span className="mr-3"><Store className="w-5 h-5" /></span>
                   <div className="flex-1 min-w-0">
@@ -1059,7 +1059,7 @@ const SettingsPage: React.FC = () => {
             saveSettings(nested);
             setShowModal(false);
           }}
-          onChange={() => {}}
+          onChange={() => { }}
           loading={saving}
         />
       )}
