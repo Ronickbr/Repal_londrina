@@ -62,17 +62,21 @@ function createSupabaseStub() {
   const stubClient: any = {
     from: (_table: string) => builder,
     auth: {
-      getUser: async () => ({ data: { user: { id: 'dev-user-id', email: 'dev@example.com' } }, error: null }),
-      getSession: async () => ({ data: { session: { user: { id: 'dev-user-id', email: 'dev@example.com' } } }, error: null }),
+      getUser: async () => ({ data: { user: { id: 'dev-user-id', email: 'dev@example.com', user_metadata: { name: 'Dev User', role: 'super_admin' } } }, error: null }),
+      getSession: async () => ({ data: { session: { user: { id: 'dev-user-id', email: 'dev@example.com', user_metadata: { name: 'Dev User', role: 'super_admin' } } } }, error: null }),
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => { } } } }),
+      signInWithPassword: async () => ({ data: { user: { id: 'dev-user-id', email: 'dev@example.com' } }, error: null }),
+      signOut: async () => ({ error: null }),
+      updateUser: async () => ({ data: { user: { id: 'dev-user-id' } }, error: null }),
     },
     storage: {
       from: (_bucket: string) => ({
-        upload: async (_path: string, _file: File) => ({ 
-          data: { path: 'dev-image-path' }, 
-          error: null 
+        upload: async (_path: string, _file: File) => ({
+          data: { path: 'dev-image-path' },
+          error: null
         }),
-        getPublicUrl: (_path: string) => ({ 
-          data: { publicUrl: `https://via.placeholder.com/300x200?text=${encodeURIComponent(_path)}` } 
+        getPublicUrl: (_path: string) => ({
+          data: { publicUrl: `https://via.placeholder.com/300x200?text=${encodeURIComponent(_path)}` }
         }),
         remove: async (_paths: string[]) => ({ data: null, error: null }),
       })
@@ -80,7 +84,7 @@ function createSupabaseStub() {
     channel: (_name: string) => ({
       on: (_event: string, _config: any, _callback: Function) => ({
         subscribe: () => ({
-          unsubscribe: () => {}
+          unsubscribe: () => { }
         })
       })
     })
@@ -106,7 +110,7 @@ export async function logActivity(payload: {
   if (!isSupabaseConfigured || !isActivityLogsEnabled) return
   try {
     await supabase.from(table('activity_logs')).insert(payload)
-  } catch {}
+  } catch { }
 }
 
 // Types para o banco de dados
