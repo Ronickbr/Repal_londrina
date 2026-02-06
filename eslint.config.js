@@ -1,0 +1,66 @@
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import tseslint from 'typescript-eslint'
+
+export default tseslint.config(
+  { ignores: [
+    'dist',
+    'src/components/admin/**',
+    'src/pages/admin/**',
+    'src/services/**',
+    'src/utils/**/__tests__/**',
+    'src/services/**/__tests__/**',
+    'src/contexts/**',
+    'src/lib/supabase.ts',
+    'src/hooks/useErrorHandler.ts',
+    'src/hooks/useBanners.ts',
+    'src/hooks/useAuth.tsx',
+    'src/hooks/useProducts.ts',
+    'src/hooks/useSubcategories.ts',
+    'src/pages/CategoryProducts.tsx',
+    'src/pages/Home.tsx',
+    'src/components/ProductForm.tsx',
+    'src/components/DatabaseTest.tsx'
+  ] },
+  {
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+    },
+    ignores: [],
+  },
+  {
+    files: ['src/tests/**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-require-imports': 'off'
+    }
+  },
+  {
+    files: ['src/pages/__tests__/**/*.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off'
+    }
+  },
+  {
+    files: ['src/components/ResourcePrefetch.tsx'],
+    rules: {
+      'react-refresh/only-export-components': 'off'
+    }
+  },
+)

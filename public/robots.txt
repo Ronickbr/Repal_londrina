@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /login
+Disallow: /perfil
+Disallow: /api/
+Disallow: /*?*utm_
+Disallow: /*?*gclid=
+Disallow: /*?*fbclid=
+Disallow: /*?*ref=
+Sitemap: https://www.repalmarechal.com.br/sitemap.xml

@@ -1,0 +1,51 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+.agent
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+
+# Database
+*.db
+*.sqlite
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.vercel
+
+review_repalmarechal-com.br_2025-12-12 18_47_22.pdf
+erro_console.md
+schema_do_db.md
+erros.md
