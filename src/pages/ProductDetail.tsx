@@ -200,27 +200,27 @@ const ProductDetail: React.FC = () => {
       <div className="container mx-auto px-4 py-6 max-w-7xl">
         {/* Breadcrumb */}
         <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-8 bg-white/70 backdrop-blur-sm rounded-full px-6 py-3 shadow-sm border border-gray-200/50">
-          <Link to="/" className="hover:text-[#8B0000] transition-colors duration-200 font-medium">Início</Link>
+          <Link to="/" className="hover:text-primary transition-colors duration-200 font-medium">Início</Link>
           {/* Removed parent_category reference as it doesn't exist in Category interface */}
           {product.category && typeof product.category === 'object' && (
             <>
               <span className="text-gray-400">/</span>
               <Link
                 to={`/categorias/${product.category.slug}`}
-                className="hover:text-[#8B0000] transition-colors duration-200 font-medium"
+                className="hover:text-primary transition-colors duration-200 font-medium"
               >
                 {product.category.name}
               </Link>
             </>
           )}
           <span className="text-gray-400">/</span>
-          <span className="text-[#333333] font-semibold truncate max-w-xs">{product.name}</span>
+          <span className="text-secondary font-semibold truncate max-w-xs">{product.name}</span>
         </nav>
 
         {/* Back Button */}
         <Link
           to={product.category?.slug ? `/categorias/${product.category.slug}` : "/categorias"}
-          className="inline-flex items-center space-x-2 text-[#000080] hover:text-[#000060] mb-8 transition-all duration-200 bg-white/70 backdrop-blur-sm rounded-lg px-4 py-2 shadow-sm border border-gray-200/50 hover:shadow-md hover:bg-white/90"
+          className="inline-flex items-center space-x-2 text-secondary hover:text-primary mb-8 transition-all duration-200 bg-white/70 backdrop-blur-sm rounded-lg px-4 py-2 shadow-sm border border-gray-200/50 hover:shadow-md hover:bg-white/90"
         >
           <ArrowLeft className="h-4 w-4" />
           <span className="font-medium">
@@ -299,8 +299,8 @@ const ProductDetail: React.FC = () => {
                       key={index}
                       onClick={() => setCurrentImageIndex(index)}
                       className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${index === currentImageIndex
-                          ? 'bg-primary scale-125 shadow-lg'
-                          : 'bg-gray-300 hover:bg-gray-400 hover:scale-110'
+                        ? 'bg-primary scale-125 shadow-lg'
+                        : 'bg-gray-300 hover:bg-gray-400 hover:scale-110'
                         }`}
                     />
                   ))}
@@ -313,8 +313,8 @@ const ProductDetail: React.FC = () => {
                       key={image.id}
                       onClick={() => setCurrentImageIndex(index)}
                       className={`relative h-16 sm:h-20 lg:h-24 rounded-lg sm:rounded-xl overflow-hidden border-2 transition-all duration-300 hover:scale-105 group flex items-center justify-center ${index === currentImageIndex
-                          ? 'border-primary ring-2 ring-primary ring-opacity-30 shadow-lg'
-                          : 'border-gray-200 hover:border-primary/50 shadow-sm hover:shadow-md'
+                        ? 'border-primary ring-2 ring-primary ring-opacity-30 shadow-lg'
+                        : 'border-gray-200 hover:border-primary/50 shadow-sm hover:shadow-md'
                         }`}
                     >
                       <img
@@ -343,27 +343,27 @@ const ProductDetail: React.FC = () => {
             <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-200/50">
               <div className="flex flex-wrap items-center gap-2 mb-3 sm:mb-4">
                 {product.category && typeof product.category === 'object' && (
-                  <span className="bg-gradient-to-r from-[#000080] to-[#000060] text-white text-xs sm:text-sm px-3 sm:px-4 py-1 sm:py-2 rounded-full font-medium shadow-md">
+                  <span className="bg-secondary text-white text-xs sm:text-sm px-3 sm:px-4 py-1 sm:py-2 rounded-full font-medium shadow-md">
                     {product.category.name}
                   </span>
                 )}
                 {product.featured && (
-                  <span className="bg-gradient-to-r from-primary to-[#660000] text-white text-xs sm:text-sm px-3 sm:px-4 py-1 sm:py-2 rounded-full flex items-center space-x-1 sm:space-x-2 font-medium shadow-md">
+                  <span className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white text-xs sm:text-sm px-3 sm:px-4 py-1 sm:py-2 rounded-full flex items-center space-x-1 sm:space-x-2 font-medium shadow-md">
                     <Star className="h-3 w-3 sm:h-4 sm:w-4 fill-current" />
                     <span>Produto em Destaque</span>
                   </span>
                 )}
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-3 sm:mb-4 leading-tight">
+              <h1 className="text-2xl sm:text-3xl font-bold text-secondary mb-3 sm:mb-4 leading-tight">
                 {product.name}
-
-                {isAuthenticated && product.price !== undefined && (
-                  <div className="text-2xl sm:text-3xl font-bold text-primary mb-3 sm:mb-4">
-                    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(product.price)}
-                  </div>
-                )}
-
               </h1>
+
+              {isAuthenticated && product.price !== undefined && (
+                <div className="text-3xl sm:text-4xl font-bold text-primary mb-3 sm:mb-4">
+                  {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(product.price)}
+                </div>
+              )}
+
               <h2 className="sr-only">Descrição do Produto</h2>
               <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-gray-600">
                 <div className="flex items-center space-x-1">
@@ -371,7 +371,7 @@ const ProductDetail: React.FC = () => {
                   <span>Equipamento Profissional</span>
                 </div>
                 <div className="flex items-center space-x-1">
-                  <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-[#000080]" />
+                  <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-secondary" />
                   <span>Garantia Inclusa</span>
                 </div>
               </div>
@@ -436,16 +436,15 @@ const ProductDetail: React.FC = () => {
 
             {/* CTA Buttons */}
             <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/50 space-y-4">
-              <h3 className="text-xl font-bold text-[#333333] mb-4 flex items-center space-x-2">
-                <div className="w-1 h-6 bg-gradient-to-b from-[#25D366] to-[#20B858] rounded-full"></div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4 flex items-center space-x-2">
+                <div className="w-1 h-6 bg-primary rounded-full"></div>
                 <span>Entre em Contato</span>
               </h3>
 
               <WhatsAppButton
-                className="w-full bg-gradient-to-r from-green-700 to-green-600 text-white py-4 px-6 rounded-xl font-bold hover:from-green-800 hover:to-green-700 transition-all duration-300 flex items-center justify-center space-x-3 text-lg shadow-lg hover:shadow-xl hover:scale-105 transform"
+                className="w-full bg-green-600 text-white py-4 px-6 rounded-xl font-bold hover:bg-green-700 transition-all duration-300 flex items-center justify-center space-x-3 text-lg shadow-lg hover:shadow-xl hover:scale-[1.02] transform"
                 message={whatsappMessage}
               >
-
                 <span>Solicitar Orçamento</span>
               </WhatsAppButton>
 
@@ -453,9 +452,9 @@ const ProductDetail: React.FC = () => {
                 <button
                   onClick={addToBudget}
                   disabled={isAddedToBudget}
-                  className={`py-3 px-4 rounded-xl font-bold transition-all duration-300 text-center shadow-md hover:shadow-lg hover:scale-105 transform flex items-center justify-center space-x-2 ${isAddedToBudget
-                      ? 'bg-green-600 text-white cursor-not-allowed'
-                      : 'border-2 border-[#8B0000] text-[#8B0000] hover:bg-[#8B0000] hover:text-white'
+                  className={`py-3 px-4 rounded-xl font-bold transition-all duration-300 text-center shadow-md hover:shadow-lg hover:scale-[1.02] transform flex items-center justify-center space-x-2 ${isAddedToBudget
+                    ? 'bg-green-600 text-white cursor-not-allowed'
+                    : 'bg-primary text-white hover:bg-primary-hover'
                     }`}
                 >
                   {isAddedToBudget ? (
@@ -472,15 +471,15 @@ const ProductDetail: React.FC = () => {
                 </button>
               </div>
 
-              <div className="mt-4 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border border-gray-200">
+              <div className="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-100">
                 <div className="flex items-center justify-center space-x-4 text-sm text-gray-600">
                   <div className="flex items-center space-x-1">
-                    <Clock className="h-4 w-4 text-[#8B0000]" />
+                    <Clock className="h-4 w-4 text-primary" />
                     <span>Resposta rápida</span>
                   </div>
                   <div className="w-1 h-4 bg-gray-300 rounded-full"></div>
                   <div className="flex items-center space-x-1">
-                    <Shield className="h-4 w-4 text-[#000080]" />
+                    <Shield className="h-4 w-4 text-secondary" />
                     <span>Atendimento especializado</span>
                   </div>
                 </div>
@@ -522,18 +521,18 @@ const ProductDetail: React.FC = () => {
         )}
 
         {/* Stats Section */}
-        <section className="py-12 bg-white border-t">
+        <section className="py-12 bg-white border-t border-gray-100">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
               {/* Frete Rápido e Seguro */}
               <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8B0000' }}>
-                    <Truck className="h-6 w-6 text-white" />
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-primary text-white">
+                    <Truck className="h-6 w-6" />
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-lg font-bold text-gray-900 leading-tight">Frete Rápido e Seguro</div>
+                  <div className="text-lg font-bold text-secondary leading-tight">Frete Rápido e Seguro</div>
                   <div className="text-sm text-gray-600 font-medium leading-tight">Chega até você sem demora.</div>
                 </div>
               </div>
@@ -541,12 +540,12 @@ const ProductDetail: React.FC = () => {
               {/* Padrão Profissional */}
               <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8B0000' }}>
-                    <Award className="h-6 w-6 text-white" />
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-primary text-white">
+                    <Award className="h-6 w-6" />
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-lg font-bold text-gray-900 leading-tight">Padrão Profissional</div>
+                  <div className="text-lg font-bold text-secondary leading-tight">Padrão Profissional</div>
                   <div className="text-sm text-gray-600 font-medium leading-tight">Tecnologia de nível industrial.</div>
                 </div>
               </div>
@@ -554,26 +553,26 @@ const ProductDetail: React.FC = () => {
               {/* Proteção Total */}
               <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8B0000' }}>
-                    <Shield className="h-6 w-6 text-white" />
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-secondary text-white">
+                    <Shield className="h-6 w-6" />
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-lg font-bold text-gray-900 leading-tight">Proteção Total</div>
-                  <div className="text-sm text-gray-600 font-medium leading-tight">Embalagens resistentes contra danos.</div>
+                  <div className="text-lg font-bold text-secondary leading-tight">Proteção Total</div>
+                  <div className="text-sm text-gray-600 font-medium leading-tight">Embalagens resistentes.</div>
                 </div>
               </div>
 
               {/* Atendimento 24/7 */}
               <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
                 <div className="flex-shrink-0">
-                  <div className="w-12 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: '#8B0000' }}>
-                    <MessageCircle className="h-6 w-6 text-white" />
+                  <div className="w-12 h-12 rounded-lg flex items-center justify-center bg-secondary text-white">
+                    <MessageCircle className="h-6 w-6" />
                   </div>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-lg font-bold text-gray-900 leading-tight">Atendimento 24/7</div>
-                  <div className="text-sm text-gray-600 font-medium leading-tight">Suporte para qualquer situação.</div>
+                  <div className="text-lg font-bold text-secondary leading-tight">Atendimento</div>
+                  <div className="text-sm text-gray-600 font-medium leading-tight">Suporte especializado.</div>
                 </div>
               </div>
             </div>
@@ -582,15 +581,15 @@ const ProductDetail: React.FC = () => {
 
         {/* Similar Products Section - Before Footer */}
         {similarProducts && similarProducts.length > 0 && (
-          <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100 border-t">
+          <section className="py-16 bg-gray-50 border-t border-gray-100">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-10">
                 <div className="flex items-center justify-center gap-3 mb-3">
-                  <div className="h-1 w-12 bg-gradient-to-r from-red-600 to-orange-500 rounded-full" />
-                  <Star className="w-5 h-5 text-red-600 fill-red-600" />
-                  <div className="h-1 w-12 bg-gradient-to-l from-red-600 to-orange-500 rounded-full" />
+                  <div className="h-1 w-12 bg-primary rounded-full" />
+                  <Star className="w-5 h-5 text-primary fill-primary" />
+                  <div className="h-1 w-12 bg-primary rounded-full" />
                 </div>
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-secondary mb-3">
                   Produtos Relacionados
                 </h2>
                 <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
@@ -623,7 +622,7 @@ const ProductDetail: React.FC = () => {
               <div className="text-center mt-12">
                 <Link
                   to={`/categorias/${product.category?.slug}`}
-                  className="inline-flex items-center space-x-2 bg-gradient-to-r from-[#8B0000] to-[#B22222] text-white px-8 py-3 rounded-xl font-semibold hover:from-[#B22222] hover:to-[#DC143C] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform"
+                  className="inline-flex items-center space-x-2 bg-primary text-white px-8 py-3 rounded-xl font-semibold hover:bg-primary-hover transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-[1.02] transform"
                 >
                   <span>Ver todos os produtos da categoria</span>
                   <ArrowLeft className="h-5 w-5 rotate-180" />
@@ -687,8 +686,8 @@ const ProductDetail: React.FC = () => {
                       key={image.id}
                       onClick={() => setModalImageIndex(index)}
                       className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-300 hover:scale-105 ${index === modalImageIndex
-                          ? 'border-[#8B0000] ring-2 ring-[#8B0000] ring-opacity-50 shadow-lg'
-                          : 'border-white/50 hover:border-white shadow-md'
+                        ? 'border-[#8B0000] ring-2 ring-[#8B0000] ring-opacity-50 shadow-lg'
+                        : 'border-white/50 hover:border-white shadow-md'
                         }`}
                     >
                       <img

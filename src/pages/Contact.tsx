@@ -87,14 +87,15 @@ const Contact: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background font-sans">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-red-900 to-blue-900 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-5xl font-bold mb-6">
+      <div className="bg-secondary text-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Entre em Contato
           </h1>
-          <p className="text-xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed font-light">
             Nossa equipe especializada está pronta para ajudar você a encontrar
             as melhores soluções em equipamentos para sua cozinha industrial.
           </p>
@@ -116,8 +117,8 @@ const Contact: React.FC = () => {
 
               {submitted ? (
                 <div className="text-center py-12">
-                  <div className="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
-                    <Check className="h-10 w-10 text-green-600" />
+                  <div className="bg-green-500 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6 shadow-lg">
+                    <Check className="h-10 w-10 text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-4">
                     Mensagem enviada com sucesso!
@@ -128,7 +129,7 @@ const Contact: React.FC = () => {
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="bg-red-900 hover:bg-red-800 text-white px-8 py-3 rounded-lg font-bold transition-all duration-300"
+                    className="bg-primary hover:bg-primary-hover text-white px-8 py-3 rounded-lg font-bold transition-all duration-300 shadow-md hover:shadow-lg"
                   >
                     Enviar Nova Mensagem
                   </button>
@@ -145,7 +146,7 @@ const Contact: React.FC = () => {
                         required
                         value={formData.client_name}
                         onChange={(e) => setFormData({ ...formData, client_name: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
                         placeholder="Seu nome completo"
                       />
                     </div>
@@ -159,7 +160,7 @@ const Contact: React.FC = () => {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
                         placeholder="seu@email.com"
                       />
                     </div>
@@ -175,7 +176,7 @@ const Contact: React.FC = () => {
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
                         placeholder="(11) 99999-9999"
                       />
                     </div>
@@ -188,7 +189,7 @@ const Contact: React.FC = () => {
                         type="text"
                         value={formData.product_name}
                         onChange={(e) => setFormData({ ...formData, product_name: e.target.value })}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300"
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
                         placeholder="Ex: Fogão Industrial, Geladeira, etc."
                       />
                     </div>
@@ -203,7 +204,7 @@ const Contact: React.FC = () => {
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-300"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-300"
                       placeholder="Conte-nos sobre sua necessidade, tipo de estabelecimento, quantidade de equipamentos, etc."
                     />
                   </div>
@@ -211,7 +212,7 @@ const Contact: React.FC = () => {
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full bg-red-900 hover:bg-red-800 disabled:bg-gray-400 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2"
+                    className="w-full bg-primary hover:bg-primary-hover disabled:bg-gray-400 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-2 shadow-lg"
                   >
                     {submitting ? (
                       <>
@@ -240,8 +241,8 @@ const Contact: React.FC = () => {
                   const IconComponent = info.icon;
                   return (
                     <div key={index} className="flex items-start space-x-4">
-                      <div className="bg-red-100 rounded-lg p-3">
-                        <IconComponent className="h-6 w-6 text-red-600" />
+                      <div className="bg-red-50 rounded-lg p-3">
+                        <IconComponent className="h-6 w-6 text-primary" />
                       </div>
                       <div>
                         <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -267,16 +268,15 @@ const Contact: React.FC = () => {
                 </h3>
 
                 <WhatsAppButton
-                  className="w-full text-white px-6 py-4 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3"
+                  className="w-full text-white px-6 py-4 rounded-lg font-bold transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-3 shadow-lg bg-green-600 hover:bg-green-700"
                   message="Olá! Gostaria de solicitar um orçamento."
                 >
-
                   <span>WhatsApp</span>
                 </WhatsAppButton>
 
                 <a
                   href={`tel:${contactPhone?.replace(/\D/g, '') || '+554333242892'}`}
-                  className="w-full bg-blue-900 hover:bg-blue-800 text-white px-6 py-4 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3"
+                  className="w-full bg-secondary hover:bg-gray-900 text-white px-6 py-4 rounded-lg font-bold transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-3 shadow-md"
                 >
                   <Phone className="h-6 w-6" />
                   <span>Ligar Agora</span>
@@ -284,7 +284,7 @@ const Contact: React.FC = () => {
 
                 <a
                   href={`mailto:${contactEmail || 'repallondrina@hotmail.com'}`}
-                  className="w-full bg-gray-700 hover:bg-gray-800 text-white px-6 py-4 rounded-lg font-bold transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-3"
+                  className="w-full bg-white border border-gray-200 hover:bg-gray-50 text-gray-800 px-6 py-4 rounded-lg font-bold transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center space-x-3 shadow-sm hover:shadow-md"
                 >
                   <Mail className="h-6 w-6" />
                   <span>Enviar E-mail</span>
@@ -328,8 +328,8 @@ const Contact: React.FC = () => {
             <button
               onClick={() => setActiveTab('entrega')}
               className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mx-1 mb-2 sm:mb-0 ${activeTab === 'entrega'
-                ? 'bg-red-900 text-white shadow-lg'
-                : 'text-gray-600 hover:text-red-900 hover:bg-white'
+                ? 'bg-primary text-white shadow-lg'
+                : 'text-gray-600 hover:text-primary hover:bg-white'
                 }`}
             >
               Entrega &amp; Instalação
@@ -337,8 +337,8 @@ const Contact: React.FC = () => {
             <button
               onClick={() => setActiveTab('garantia')}
               className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mx-1 mb-2 sm:mb-0 ${activeTab === 'garantia'
-                ? 'bg-red-900 text-white shadow-lg'
-                : 'text-gray-600 hover:text-red-900 hover:bg-white'
+                ? 'bg-primary text-white shadow-lg'
+                : 'text-gray-600 hover:text-primary hover:bg-white'
                 }`}
             >
               Garantia &amp; Manutenção
@@ -346,8 +346,8 @@ const Contact: React.FC = () => {
             <button
               onClick={() => setActiveTab('produtos')}
               className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mx-1 mb-2 sm:mb-0 ${activeTab === 'produtos'
-                ? 'bg-red-900 text-white shadow-lg'
-                : 'text-gray-600 hover:text-red-900 hover:bg-white'
+                ? 'bg-primary text-white shadow-lg'
+                : 'text-gray-600 hover:text-primary hover:bg-white'
                 }`}
             >
               Produtos &amp; Serviços
@@ -510,12 +510,13 @@ const Contact: React.FC = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-gradient-to-r from-red-900 to-blue-900 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-4">
+      <div className="bg-secondary text-white py-20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Transforme sua Cozinha em uma Verdadeira Potência Gastronômica
           </h2>
-          <p className="text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto font-light">
             Entre em contato agora e descubra como nossos equipamentos podem
             revolucionar sua operação culinária.
           </p>

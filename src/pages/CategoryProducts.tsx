@@ -18,7 +18,7 @@ const CategoryProducts: React.FC = () => {
   const [viewMode, setViewMode] = useState<ViewMode>((searchParams.get('view') as ViewMode) || 'grid')
   const [sortBy, setSortBy] = useState(searchParams.get('sort') || 'name')
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const [pageSize, setPageSize] = useState<number>(12)
+  const [pageSize] = useState<number>(12)
   const [selectedSubcategories, setSelectedSubcategories] = useState<string[]>(() => {
     const fromQuery = searchParams.get('sub')
     return fromQuery ? fromQuery.split(',').filter(Boolean) : []
@@ -68,7 +68,7 @@ const CategoryProducts: React.FC = () => {
     setCurrentPage(1)
   }, [searchParams])
 
-  
+
 
   const subcategoryCounts = useMemo(() => {
     const map = new Map<string, number>()
@@ -157,146 +157,256 @@ const CategoryProducts: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="container mx-auto px-4 py-6 max-w-7xl">
-        <nav className="flex items-center space-x-2 text-sm text-gray-600 mb-6 bg-white/70 backdrop-blur-sm rounded-full px-5 py-3 shadow-sm border border-gray-200/50" aria-label="breadcrumb">
-          <Link to="/" className="hover:text-primary transition-colors duration-200 font-medium">Início</Link>
-          {currentCategory && (
-            <>
-              <span className="text-gray-400">/</span>
-              <Link to={`/categorias/${currentCategory.slug}`} className="hover:text-primary transition-colors duration-200 font-medium">
-                {currentCategory.name}
-              </Link>
-            </>
-          )}
-          {currentSubcategory && (
-            <>
-              <span className="text-gray-400">/</span>
-              <span className="text-[#333333] font-semibold truncate max-w-xs">{currentSubcategory.name}</span>
-            </>
-          )}
-        </nav>
+    <div className="min-h-screen bg-background pb-12">
+      {/* breadcrumb mockup */}
+      <div className="bg-white border-b border-gray-100 shadow-sm sticky top-0 z-20">
+        <div className="container mx-auto px-4 py-4 max-w-7xl">
+          <nav className="flex items-center space-x-2 text-sm text-gray-500 overflow-x-auto whitespace-nowrap pb-2 sm:pb-0" aria-label="breadcrumb">
+            <Link to="/" className="hover:text-primary transition-colors duration-200">Início</Link>
+            <span className="text-gray-300">/</span>
+            <Link to="/categorias" className="hover:text-primary transition-colors duration-200">Categorias</Link>
+            {currentCategory && (
+              <>
+                <span className="text-gray-300">/</span>
+                <Link to={`/categorias/${currentCategory.slug}`} className={`hover:text-primary transition-colors duration-200 ${!currentSubcategory ? 'font-bold text-gray-900' : ''}`}>
+                  {currentCategory.name}
+                </Link>
+              </>
+            )}
+            {currentSubcategory && (
+              <>
+                <span className="text-gray-300">/</span>
+                <span className="text-primary font-bold">{currentSubcategory.name}</span>
+              </>
+            )}
+            {searchTerm && (
+              <>
+                <span className="text-gray-300">/</span>
+                <span className="text-gray-800">Busca: "{searchTerm}"</span>
+              </>
+            )}
+          </nav>
+        </div>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 hidden lg:block">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Filter className="h-4 w-4 text-gray-600" />
-                  <span className="font-semibold text-gray-900">Filtros</span>
-                </div>
-                <button onClick={() => setIsFilterModalOpen(true)} className="lg:hidden text-sm px-3 py-1.5 rounded-lg bg-gray-100 hover:bg-gray-200">
-                  Abrir
-                </button>
+      <div className="container mx-auto px-4 py-8 max-w-7xl">
+        <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-secondary mb-2">
+              {currentSubcategory ? currentSubcategory.name : (currentCategory ? currentCategory.name : 'Produtos')}
+            </h1>
+            <p className="text-gray-500">
+              {totalItems} {totalItems === 1 ? 'produto encontrado' : 'produtos encontrados'}
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+            <div className="flex bg-white rounded-lg border border-gray-200 p-1 shadow-sm">
+              <button
+                onClick={() => setViewMode('grid')}
+                className={`p-2 rounded-md transition-all ${viewMode === 'grid' ? 'bg-primary text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'}`}
+                aria-label="Visualização em grade"
+              >
+                <Grid2x2 className="h-5 w-5" />
+              </button>
+              <button
+                onClick={() => setViewMode('list')}
+                className={`p-2 rounded-md transition-all ${viewMode === 'list' ? 'bg-primary text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 hover:bg-gray-100'}`}
+                aria-label="Visualização em lista"
+              >
+                <List className="h-5 w-5" />
+              </button>
+            </div>
+
+            <select
+              value={sortBy}
+              onChange={e => setSortBy(e.target.value)}
+              className="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary cursor-pointer shadow-sm"
+            >
+              <option value="name">Ordem Alfabética (A-Z)</option>
+              <option value="recent">Mais Recentes</option>
+            </select>
+
+            <button
+              onClick={() => setIsFilterModalOpen(true)}
+              className="lg:hidden px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 shadow-sm flex items-center gap-2"
+            >
+              <Filter className="h-4 w-4" />
+              Filtros
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Sidebar - Desktop */}
+          <div className="lg:col-span-1 hidden lg:block space-y-8">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-24">
+              <div className="flex items-center gap-2 mb-6">
+                <Filter className="h-5 w-5 text-primary" />
+                <h3 className="font-bold text-gray-900 text-lg">Filtros</h3>
               </div>
 
-              <div className="mt-4 space-y-4">
+              <div className="space-y-6">
+                {/* Search */}
                 <div>
-                  <label htmlFor="category-select" className="block text-sm font-medium text-gray-700 mb-1">Categoria</label>
-                  <select id="category-select" className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" value={selectedCategorySlug} onChange={e => handleCategoryChange(e.target.value)} aria-label="Selecionar categoria">
-                    <option value="">Selecione</option>
+                  <label className="text-sm font-semibold text-gray-700 mb-2 block">Buscar</label>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <input
+                      value={searchTerm}
+                      onChange={e => setSearchTerm(e.target.value)}
+                      placeholder="Nome do produto..."
+                      className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm"
+                    />
+                    {searchTerm && (
+                      <button onClick={() => setSearchTerm('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                        x
+                      </button>
+                    )}
+                  </div>
+                </div>
+
+                {/* Categories */}
+                <div>
+                  <label className="text-sm font-semibold text-gray-700 mb-2 block">Categoria Principal</label>
+                  <select
+                    className="w-full px-3 py-2.5 bg-gray-50 border border-gray-200 rounded-lg focus:bg-white focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm transition-all"
+                    value={selectedCategorySlug}
+                    onChange={e => handleCategoryChange(e.target.value)}
+                  >
+                    <option value="">Todas as Categorias</option>
                     {categories?.map(c => (
                       <option key={c.id} value={c.slug}>{c.name}</option>
                     ))}
                   </select>
                 </div>
 
-                <div role="group" aria-labelledby="subcat-label">
-                  <div id="subcat-label" className="text-sm font-medium text-gray-700 mb-2">Subcategorias</div>
-                  <div className="space-y-2 max-h-64 overflow-auto pr-1">
-                    {subcategories.map(sub => {
-                      const id = String(sub.id)
-                      const isChecked = selectedSubcategories.includes(id) || selectedSubcategories.includes(sub.slug)
-                      const count = subcategoryCounts.get(String(sub.id)) || 0
-                      return (
-                        <label key={sub.id} className="flex items-center justify-between gap-2 cursor-pointer">
-                          <div className="flex items-center gap-2">
-                            <input type="checkbox" className="rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked={isChecked} onChange={() => handleSubcategoryToggle(id)} aria-checked={isChecked} aria-label={sub.name} />
-                            <span className="text-sm text-gray-700">{sub.name}</span>
-                          </div>
-                          <span className="text-xs text-gray-500">{count}</span>
-                        </label>
-                      )
-                    })}
+                {/* Subcategories */}
+                {subcategories.length > 0 && (
+                  <div>
+                    <label className="text-sm font-semibold text-gray-700 mb-3 block">Subcategorias</label>
+                    <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                      {subcategories.map(sub => {
+                        const id = String(sub.id)
+                        const isChecked = selectedSubcategories.includes(id) || selectedSubcategories.includes(String(sub.slug))
+                        const count = subcategoryCounts.get(String(sub.id)) || 0
+                        return (
+                          <label key={sub.id} className="flex items-center group cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-colors -mx-2">
+                            <input
+                              type="checkbox"
+                              className="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4 cursor-pointer"
+                              checked={isChecked}
+                              onChange={() => handleSubcategoryToggle(id)}
+                            />
+                            <span className={`ml-3 text-sm flex-1 ${isChecked ? 'text-primary font-medium' : 'text-gray-600 group-hover:text-gray-900'}`}>
+                              {sub.name}
+                            </span>
+                            <span className="text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full">{count}</span>
+                          </label>
+                        )
+                      })}
+                    </div>
                   </div>
-                </div>
+                )}
 
-                <div>
-                  <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">Busca</label>
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <input id="search" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} placeholder="Buscar produto" className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" aria-label="Buscar produtos" />
-                    {searchTerm && (
-                      <button onClick={() => setSearchTerm('')} className="absolute right-2 top-1/2 -translate-y-1/2 text-sm px-2 py-1 rounded bg-gray-100 hover:bg-gray-200">Limpar</button>
-                    )}
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <button onClick={applyFilters} className="flex-1 px-3 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Aplicar Filtros</button>
-                  <button onClick={clearFilters} className="px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200">Limpar</button>
+                <div className="pt-4 border-t border-gray-100 flex flex-col gap-3">
+                  <button
+                    onClick={applyFilters}
+                    className="w-full py-2.5 bg-primary text-white rounded-lg font-bold text-sm hover:bg-primary-hover shadow-md hover:shadow-lg transition-all"
+                  >
+                    Aplicar Filtros
+                  </button>
+                  <button
+                    onClick={clearFilters}
+                    className="w-full py-2.5 bg-white border border-gray-200 text-gray-600 rounded-lg font-bold text-sm hover:bg-gray-50 hover:text-gray-800 transition-all"
+                  >
+                    Limpar Filtros
+                  </button>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="lg:col-span-3">
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4 mb-4">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-3" aria-live="polite">
-                  <span className="text-sm text-gray-600">Mostrando {totalItems === 0 ? 0 : startIndex + 1} a {endIndex} de {totalItems} produtos</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => setIsFilterModalOpen(true)} className="inline-flex items-center gap-2 text-sm px-3 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 lg:hidden" aria-label="Abrir filtros">
-                    <Filter className="h-4 w-4 text-gray-600" />
-                    <span>Filtros</span>
-                  </button>
-                  <div className="ml-3 flex items-center gap-1" role="group" aria-label="Alternar visualização">
-                    <button onClick={() => setViewMode('grid')} className={`p-2 rounded-lg ${viewMode === 'grid' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`} aria-pressed={viewMode === 'grid'} aria-label="Visualização em grade">
-                      <Grid2x2 className="h-4 w-4" />
-                    </button>
-                    <button onClick={() => setViewMode('list')} className={`p-2 rounded-lg ${viewMode === 'list' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`} aria-pressed={viewMode === 'list'} aria-label="Visualização em lista">
-                      <List className="h-4 w-4" />
-                    </button>
-                  </div>
-                  <label className="ml-3 text-sm text-gray-700">Itens por página</label>
-                  <select value={pageSize} onChange={e => setPageSize(Number(e.target.value))} className="px-3 py-2 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary" aria-label="Itens por página">
-                    <option value={12}>12</option>
-                    <option value={24}>24</option>
-                    <option value={36}>36</option>
-                  </select>
-                </div>
-              </div>
-            </div>
+            {/* Pagination Top & Page Size - Optional */}
 
             {isLoading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {Array.from({ length: pageSize }).map((_, i) => (
-                  <div key={i} className="h-60 bg-gray-100 rounded-xl animate-pulse" />
+                  <div key={i} className="h-[400px] bg-white rounded-2xl shadow-sm border border-gray-100 animate-pulse p-4">
+                    <div className="bg-gray-200 h-48 w-full rounded-xl mb-4"></div>
+                    <div className="bg-gray-200 h-4 w-3/4 rounded mb-2"></div>
+                    <div className="bg-gray-200 h-4 w-1/2 rounded mb-4"></div>
+                    <div className="bg-gray-200 h-10 w-full rounded mt-auto"></div>
+                  </div>
                 ))}
               </div>
             ) : (
-              <div className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4' : 'space-y-3'}>
-                {paginatedProducts.map(product => (
-                  <ProductCard key={product.id} product={product} viewMode={viewMode} onViewDetails={(p) => navigate(`/produto/${p.slug || p.id}`)} />
-                ))}
+              <>
+                <div className={viewMode === 'grid' ? 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6' : 'space-y-4'}>
+                  {paginatedProducts.map(product => (
+                    <ProductCard key={product.id} product={product} viewMode={viewMode} onViewDetails={(p) => navigate(`/produto/${p.slug || p.id}`)} />
+                  ))}
+                </div>
+
                 {paginatedProducts.length === 0 && (
-                  <div className="text-center text-gray-600 py-10">Nenhum produto encontrado</div>
+                  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
+                    <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Search className="h-8 w-8 text-gray-400" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">Nenhum produto encontrado</h3>
+                    <p className="text-gray-500 mb-6">Tente ajustar seus filtros ou buscar por outro termo.</p>
+                    <button onClick={clearFilters} className="text-primary font-bold hover:underline">
+                      Limpar todos os filtros
+                    </button>
+                  </div>
                 )}
-              </div>
+              </>
             )}
 
-            <div className="mt-6 flex items-center justify-between">
-              <button onClick={() => setCurrentPage(p => Math.max(1, p - 1))} disabled={currentPage === 1} className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg border ${currentPage === 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50'}`} aria-disabled={currentPage === 1}>
-                <ChevronLeft className="h-4 w-4" />
-                <span>Anterior</span>
-              </button>
-              <span className="text-sm text-gray-700">Página {currentPage} de {totalPages}</span>
-              <button onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))} disabled={currentPage === totalPages || totalItems === 0} className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg border ${currentPage === totalPages || totalItems === 0 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50'}`} aria-disabled={currentPage === totalPages || totalItems === 0}>
-                <span>Próxima</span>
-                <ChevronRight className="h-4 w-4" />
-              </button>
-            </div>
+            {/* Pagination Bottom */}
+            {totalPages > 1 && (
+              <div className="mt-12 flex justify-center">
+                <nav className="flex items-center gap-2 bg-white p-2 rounded-xl shadow-sm border border-gray-200">
+                  <button
+                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                    disabled={currentPage === 1}
+                    className={`p-2 rounded-lg transition-colors ${currentPage === 1 ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100 hover:text-primary'}`}
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+
+                  <div className="flex items-center gap-1 px-2">
+                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                      // Simple logic for showing pages around current
+                      let pageNum = i + 1;
+                      if (totalPages > 5) {
+                        if (currentPage > 3) pageNum = currentPage - 2 + i;
+                        if (currentPage > totalPages - 2) pageNum = totalPages - 4 + i;
+                      }
+
+                      return (
+                        <button
+                          key={pageNum}
+                          onClick={() => setCurrentPage(pageNum)}
+                          className={`w-10 h-10 rounded-lg text-sm font-bold transition-all ${currentPage === pageNum ? 'bg-primary text-white shadow-md' : 'text-gray-600 hover:bg-gray-100'}`}
+                        >
+                          {pageNum}
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  <button
+                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                    disabled={currentPage === totalPages}
+                    className={`p-2 rounded-lg transition-colors ${currentPage === totalPages ? 'text-gray-300 cursor-not-allowed' : 'text-gray-600 hover:bg-gray-100 hover:text-primary'}`}
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                </nav>
+              </div>
+            )}
           </div>
         </div>
 
