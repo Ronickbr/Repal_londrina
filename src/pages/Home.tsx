@@ -43,7 +43,7 @@ const Home: React.FC = () => {
           .select(`
             *,
             category:categories(id, name, slug),
-            product_images(image_url, alt_text, is_primary, sort_order)
+            product_images(id, image_url:url, sort_order)
           `)
           .eq('featured', true)
           .eq('active', true)
@@ -55,7 +55,7 @@ const Home: React.FC = () => {
             .select(`
                *,
               category:categories(id, name, slug),
-              product_images(image_url, alt_text, is_primary, sort_order)
+              product_images(id, image_url:url, sort_order)
             `)
             .eq('active', true)
             .order('created_at', { ascending: false })
