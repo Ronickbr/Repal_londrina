@@ -159,16 +159,16 @@ export const MobileMenuDrawer: React.FC<{
       const icon = name.includes('açougue')
         ? 'Beef'
         : name.includes('refrigeração comercial')
-        ? 'Snowflake'
-        : name.includes('padaria')
-        ? 'ChefHat'
-        : name.includes('bar') || name.includes('restaurante')
-        ? 'Utensils'
-        : name.includes('mobiliário')
-        ? 'Package'
-        : name.includes('peças')
-        ? 'Wrench'
-        : 'UtensilsCrossed';
+          ? 'Snowflake'
+          : name.includes('padaria')
+            ? 'ChefHat'
+            : name.includes('bar') || name.includes('restaurante')
+              ? 'Utensils'
+              : name.includes('mobiliário')
+                ? 'Package'
+                : name.includes('peças')
+                  ? 'Wrench'
+                  : 'UtensilsCrossed';
 
       return {
         id: p.id,
@@ -185,46 +185,43 @@ export const MobileMenuDrawer: React.FC<{
   // Styles for mobile performance handled via Tailwind utility classes
   // touch-manipulation is available in Tailwind
   // will-change-transform is available or can be arbitrary
-  
+
   return (
     <>
       <div
-        className={`fixed inset-0 z-[2000] lg:hidden ${
-          isOpen ? 'pointer-events-auto' : 'pointer-events-none'
-        }`}
+        className={`fixed inset-0 z-[2000] lg:hidden ${isOpen ? 'pointer-events-auto' : 'pointer-events-none'
+          }`}
         aria-hidden={!isOpen}
       >
         {/* overlay */}
         <div
           onClick={onClose}
-          className={`absolute inset-0 bg-black transition-opacity duration-200 ${
-            isOpen ? 'opacity-50' : 'opacity-0'
-          }`}
+          className={`absolute inset-0 bg-black transition-opacity duration-200 ${isOpen ? 'opacity-50' : 'opacity-0'
+            }`}
           aria-label="Fechar menu"
         />
         {/* drawer */}
         <div
-          className={`absolute left-0 top-0 h-full w-[85%] max-w-sm bg-white shadow-2xl transition-transform duration-300 ease-in-out flex flex-col will-change-transform [backface-visibility:hidden] ${
-            isOpen ? 'translate-x-0' : '-translate-x-full'
-          }`}
+          className={`absolute left-0 top-0 h-full w-[85%] max-w-sm bg-white shadow-2xl transition-transform duration-300 ease-in-out flex flex-col will-change-transform [backface-visibility:hidden] ${isOpen ? 'translate-x-0' : '-translate-x-full'
+            }`}
         >
           {/* Header do Menu com Busca e Fechar */}
           <div className="p-4 border-b border-gray-100 bg-white sticky top-0 z-10">
             <div className="flex items-center justify-between mb-4">
-               <span className="font-semibold text-gray-800 text-lg">Menu</span>
-               <button 
-                 onClick={onClose} 
-                 className="min-w-[48px] min-h-[48px] flex items-center justify-center -mr-2 text-gray-500 hover:text-primary active:bg-gray-100 rounded-full transition-colors touch-manipulation"
-                 aria-label="Fechar menu"
-               >
+              <span className="font-semibold text-gray-800 text-lg">Menu</span>
+              <button
+                onClick={onClose}
+                className="min-w-[48px] min-h-[48px] flex items-center justify-center -mr-2 text-gray-500 hover:text-primary active:bg-gray-100 rounded-full transition-colors touch-manipulation"
+                aria-label="Fechar menu"
+              >
                 <X className="w-6 h-6" />
-               </button>
+              </button>
             </div>
-            
+
             <div className="relative">
-              <SearchBar 
-                isMobile 
-                placeholder="Pesquisar..." 
+              <SearchBar
+                isMobile
+                placeholder="Pesquisar..."
                 className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all h-[48px]"
                 iconClassName="w-5 h-5 text-gray-400"
               />
@@ -234,37 +231,53 @@ export const MobileMenuDrawer: React.FC<{
           <div className="flex-1 overflow-y-auto overscroll-contain">
             {/* Minha Lista Section */}
             <div className="p-4 border-b border-gray-100">
-               <button
-                 onClick={() => {
-                   onClose();
-                   onOpenBudget();
-                 }}
-                 className="flex items-center gap-3 w-full px-3 rounded-lg text-gray-800 hover:bg-red-50 active:bg-red-100 hover:text-primary font-medium transition-colors touch-manipulation min-h-[48px] p-3"
-               >
-                 <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-primary">
-                    <ShoppingCart className="w-5 h-5" />
-                 </div>
-                 <span className="text-base">Minha Lista</span>
-               </button>
+              <button
+                onClick={() => {
+                  onClose();
+                  onOpenBudget();
+                }}
+                className="flex items-center gap-3 w-full px-3 rounded-lg text-gray-800 hover:bg-red-50 active:bg-red-100 hover:text-primary font-medium transition-colors touch-manipulation min-h-[48px] p-3"
+              >
+                <div className="w-10 h-10 rounded-full bg-red-50 flex items-center justify-center text-primary">
+                  <ShoppingCart className="w-5 h-5" />
+                </div>
+                <span className="text-base">Minha Lista</span>
+              </button>
             </div>
 
             {/* Links Principais */}
             <div className="p-4 space-y-1 border-b border-gray-100">
-                <Link 
-                  to="/" 
-                  className="flex items-center gap-3 px-3 rounded-lg text-gray-700 hover:bg-red-50 active:bg-red-100 hover:text-primary font-medium transition-colors min-h-[48px] p-3"
-                  onClick={onClose}
-                >
-                  <span className="text-base">Início</span>
-                </Link>
+              <Link
+                to="/"
+                className="flex items-center gap-3 px-3 rounded-lg text-gray-700 hover:bg-red-50 active:bg-red-100 hover:text-primary font-medium transition-colors min-h-[48px] p-3"
+                onClick={onClose}
+              >
+                <span className="text-base">Início</span>
+              </Link>
 
-                <Link 
-                  to="/minha-conta" 
-                  className="flex items-center gap-3 px-3 rounded-lg text-gray-700 hover:bg-red-50 active:bg-red-100 hover:text-primary font-medium transition-colors min-h-[48px] p-3"
-                  onClick={onClose}
-                >
-                  <span className="text-base">Minha Conta</span>
-                </Link>
+              <Link
+                to="/minha-conta"
+                className="flex items-center gap-3 px-3 rounded-lg text-gray-700 hover:bg-red-50 active:bg-red-100 hover:text-primary font-medium transition-colors min-h-[48px] p-3"
+                onClick={onClose}
+              >
+                <span className="text-base">Minha Conta</span>
+              </Link>
+
+              <Link
+                to="/sobre"
+                className="flex items-center gap-3 px-3 rounded-lg text-gray-700 hover:bg-red-50 active:bg-red-100 hover:text-primary font-medium transition-colors min-h-[48px] p-3"
+                onClick={onClose}
+              >
+                <span className="text-base">Sobre Nós</span>
+              </Link>
+
+              <Link
+                to="/contato"
+                className="flex items-center gap-3 px-3 rounded-lg text-gray-700 hover:bg-red-50 active:bg-red-100 hover:text-primary font-medium transition-colors min-h-[48px] p-3"
+                onClick={onClose}
+              >
+                <span className="text-base">Contato</span>
+              </Link>
             </div>
 
             {/* Categorias */}
@@ -273,7 +286,7 @@ export const MobileMenuDrawer: React.FC<{
               {tree.map((cat) => {
                 const isCatOpen = openCategory === cat.slug;
                 const Icon = cat.icon ? iconMap[cat.icon] : null;
-                
+
                 return (
                   <div key={cat.id} className="border-b border-gray-50 last:border-0">
                     <button
@@ -283,20 +296,19 @@ export const MobileMenuDrawer: React.FC<{
                     >
                       {Icon && <Icon className="w-6 h-6 text-gray-400" />}
                       <span className="font-medium flex-1 text-base">{cat.name}</span>
-                      <svg 
+                      <svg
                         className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isCatOpen ? 'rotate-180' : ''}`}
-                        fill="none" 
-                        stroke="currentColor" 
+                        fill="none"
+                        stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
                     </button>
 
-                    <div 
-                      className={`grid transition-all duration-300 ease-in-out ${
-                        isCatOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-                      }`}
+                    <div
+                      className={`grid transition-all duration-300 ease-in-out ${isCatOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+                        }`}
                     >
                       <div className="overflow-hidden">
                         <div className="pl-12 pr-2 py-1 space-y-1">
@@ -311,12 +323,12 @@ export const MobileMenuDrawer: React.FC<{
                             </Link>
                           ))}
                           <Link
-                              to={`/categorias/${cat.slug}`}
-                              onClick={onClose}
-                              className="block text-sm font-medium text-primary hover:underline px-2 mt-1 mobile-menu-item flex items-center"
-                           >
-                              Ver tudo em {cat.name}
-                           </Link>
+                            to={`/categorias/${cat.slug}`}
+                            onClick={onClose}
+                            className="block text-sm font-medium text-primary hover:underline px-2 mt-1 mobile-menu-item flex items-center"
+                          >
+                            Ver tudo em {cat.name}
+                          </Link>
                         </div>
                       </div>
                     </div>
@@ -327,16 +339,16 @@ export const MobileMenuDrawer: React.FC<{
 
             {/* Contact Info Footer */}
             <div className="mt-4 p-4 bg-gray-50 border-t border-gray-200 pb-safe">
-               {contactPhone && (
-                  <a href={`tel:${contactPhone}`} className="flex items-center gap-3 text-sm text-gray-600 mb-2 mobile-menu-item active:bg-gray-200 rounded-lg">
-                    <Phone className="w-5 h-5" /> {contactPhone}
-                  </a>
-               )}
-               {contactEmail && (
-                  <a href={`mailto:${contactEmail}`} className="flex items-center gap-3 text-sm text-gray-600 mobile-menu-item active:bg-gray-200 rounded-lg">
-                    <Mail className="w-5 h-5" /> {contactEmail}
-                  </a>
-               )}
+              {contactPhone && (
+                <a href={`tel:${contactPhone}`} className="flex items-center gap-3 text-sm text-gray-600 mb-2 mobile-menu-item active:bg-gray-200 rounded-lg">
+                  <Phone className="w-5 h-5" /> {contactPhone}
+                </a>
+              )}
+              {contactEmail && (
+                <a href={`mailto:${contactEmail}`} className="flex items-center gap-3 text-sm text-gray-600 mobile-menu-item active:bg-gray-200 rounded-lg">
+                  <Mail className="w-5 h-5" /> {contactEmail}
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -359,16 +371,16 @@ const NavMenu: React.FC<{ className?: string }> = ({ className = '' }) => {
       const icon = name.includes('açougue')
         ? 'Beef'
         : name.includes('refrigeração comercial')
-        ? 'Snowflake'
-        : name.includes('padaria')
-        ? 'ChefHat'
-        : name.includes('bar') || name.includes('restaurante')
-        ? 'Utensils'
-        : name.includes('mobiliário')
-        ? 'Package'
-        : name.includes('peças')
-        ? 'Wrench'
-        : 'UtensilsCrossed';
+          ? 'Snowflake'
+          : name.includes('padaria')
+            ? 'ChefHat'
+            : name.includes('bar') || name.includes('restaurante')
+              ? 'Utensils'
+              : name.includes('mobiliário')
+                ? 'Package'
+                : name.includes('peças')
+                  ? 'Wrench'
+                  : 'UtensilsCrossed';
 
       return {
         id: p.id,
@@ -390,6 +402,13 @@ const NavMenu: React.FC<{ className?: string }> = ({ className = '' }) => {
   return (
     <div className={`${className} relative`}>
       <nav className="hidden lg:flex items-center gap-4">
+        <Link to="/sobre" className="flex items-center gap-1 px-3 py-2 rounded-md text-gray-700 hover:bg-red-50 hover:text-primary transition font-medium whitespace-nowrap">
+          Sobre Nós
+        </Link>
+        <Link to="/contato" className="flex items-center gap-1 px-3 py-2 rounded-md text-gray-700 hover:bg-red-50 hover:text-primary transition font-medium whitespace-nowrap">
+          Contato
+        </Link>
+        <div className="w-px h-5 bg-gray-300 mx-1"></div>
         {tree.map((cat) => {
           const Icon = iconMap[cat.icon || ''];
           return (

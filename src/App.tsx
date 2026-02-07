@@ -12,7 +12,9 @@ import ProductDetail from './pages/ProductDetail';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import UserProfile from './pages/UserProfile';
- 
+import About from './pages/About';
+import Contact from './pages/Contact';
+
 import AdminLayout from './layouts/AdminLayout';
 
 import ProtectedRoute from './components/ProtectedRoute';
@@ -44,7 +46,7 @@ function App() {
 }
 
 function AppContent() {
-  
+
   return (
     <QueryClientProvider client={queryClient}>
       <HelmetProvider>
@@ -53,51 +55,53 @@ function AppContent() {
             <WhatsAppProvider>
               <PopupProvider>
                 <Router>
-            <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route index element={<Home />} />
-              <Route path="categorias" element={<CategoriesIndex />} />
-              <Route path="categorias/:categorySlug" element={<CategoryProducts />} />
-              <Route path="categorias/:categorySlug/:subcategorySlug" element={<CategoryProducts />} />
-              <Route path="CategoryProducts" element={<CategoryProducts />} />
-              <Route path="produto/:slug" element={<ProductDetail />} />
-              <Route 
-                path="perfil" 
-                element={
-                  <ProtectedRoute requireAdmin={false}>
-                    <UserProfile />
-                  </ProtectedRoute>
-                } 
-              />
-              <Route path="minha-conta" element={<UserProfile />} />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-            <Route path="/login" element={<Login />} />
-            <Route path="/cadastro" element={<Register />} />
-            
-            <Route 
-              path="/admin" 
-              element={
-                <ProtectedRoute>
-                  <AdminLayout />
-                </ProtectedRoute>
-              }
-            >
-              <Route index element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><DashboardPage /></Suspense>} />
-              <Route path="products" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><ProductsPage /></Suspense>} />
-              <Route path="products/adjustments" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><PriceAdjustmentsPage /></Suspense>} />
-              <Route path="categories" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><CategoriesPage /></Suspense>} />
-              <Route path="brands" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><BrandsPage /></Suspense>} />
-              <Route path="banners" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><BannersPage /></Suspense>} />
-              <Route path="promotions" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><PromotionsPage /></Suspense>} />
-              <Route path="leads" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><LeadsPage /></Suspense>} />
-              <Route path="users" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><UsersPage /></Suspense>} />
-              <Route path="settings" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><SettingsPage /></Suspense>} />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-              </Router>
+                  <Routes>
+                    <Route path="/" element={<Layout />}>
+                      <Route index element={<Home />} />
+                      <Route path="categorias" element={<CategoriesIndex />} />
+                      <Route path="categorias/:categorySlug" element={<CategoryProducts />} />
+                      <Route path="categorias/:categorySlug/:subcategorySlug" element={<CategoryProducts />} />
+                      <Route path="CategoryProducts" element={<CategoryProducts />} />
+                      <Route path="produto/:slug" element={<ProductDetail />} />
+                      <Route
+                        path="perfil"
+                        element={
+                          <ProtectedRoute requireAdmin={false}>
+                            <UserProfile />
+                          </ProtectedRoute>
+                        }
+                      />
+                      <Route path="minha-conta" element={<UserProfile />} />
+                      <Route path="sobre" element={<About />} />
+                      <Route path="contato" element={<Contact />} />
+                      <Route path="*" element={<NotFound />} />
+                    </Route>
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/cadastro" element={<Register />} />
+
+                    <Route
+                      path="/admin"
+                      element={
+                        <ProtectedRoute>
+                          <AdminLayout />
+                        </ProtectedRoute>
+                      }
+                    >
+                      <Route index element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><DashboardPage /></Suspense>} />
+                      <Route path="products" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><ProductsPage /></Suspense>} />
+                      <Route path="products/adjustments" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><PriceAdjustmentsPage /></Suspense>} />
+                      <Route path="categories" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><CategoriesPage /></Suspense>} />
+                      <Route path="brands" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><BrandsPage /></Suspense>} />
+                      <Route path="banners" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><BannersPage /></Suspense>} />
+                      <Route path="promotions" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><PromotionsPage /></Suspense>} />
+                      <Route path="leads" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><LeadsPage /></Suspense>} />
+                      <Route path="users" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><UsersPage /></Suspense>} />
+                      <Route path="settings" element={<Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-900"></div></div>}><SettingsPage /></Suspense>} />
+                      <Route path="*" element={<NotFound />} />
+                    </Route>
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </Router>
               </PopupProvider>
               <Analytics />
               <SpeedInsights />
