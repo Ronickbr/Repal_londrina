@@ -56,6 +56,26 @@ export interface SiteSettings {
 }
 
 export const useSiteSettings = () => {
+  // Inicializa com dados padrão para evitar flash ou valores vazios
+  const defaultSettings: SiteSettings = {
+    site_info: {
+      site_name: 'Repal Londrina',
+      name: 'Repal Londrina',
+      description: 'Equipamentos Gastronômicos em Londrina',
+      url: 'https://www.repallondrina.com.br'
+    },
+    seo: {
+      default_title: 'Repal Londrina - Equipamentos Gastronômicos',
+      default_description: 'A melhor loja de equipamentos gastronômicos de Londrina e região.',
+      default_keywords: 'equipamentos, gastronomia, londrina, cozinha industrial'
+    },
+    contact: {
+      email: 'repallondrina@hotmail.com',
+      phone: '(43) 3324-2892',
+      address: 'R. Minas Gerais, 164 - Centro, Londrina - PR, 86010-170'
+    }
+  };
+
   const [settings, setSettings] = useState<SiteSettings | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -70,12 +90,11 @@ export const useSiteSettings = () => {
         .from('site_settings')
         .select('*');
 
-
-
       if (allData && allData.length > 0) {
         const data = allData[0];
         setSettings(data);
       } else {
+        // Se não houver dados no banco, usa os defaults
         setSettings({});
       }
     } catch (err) {
@@ -153,26 +172,29 @@ export const useSiteSettings = () => {
     }
   };
 
+  // Combinar settings do banco com defaults
+  const currentSettings = settings || defaultSettings;
+
   return {
-    settings,
+    settings: currentSettings,
     loading,
     error,
     fetchSettings,
     updateSettings,
-    gtmId: settings?.integrations?.google_tag_manager_id,
-    geminiApiKey: settings?.integrations?.gemini_api_key,
-    // Propriedades para compatibilidade com componentes existentes
-    siteName: settings?.site_info?.site_name || settings?.site_info?.name,
-    siteDescription: settings?.site_info?.site_description || settings?.site_info?.description,
-    logoUrl: settings?.site_info?.logo || settings?.site_info?.logo_url,
-    faviconUrl: settings?.site_info?.favicon_url || settings?.site_info?.favicon,
-    metaTitle: settings?.seo?.meta_title || settings?.seo?.default_title,
-    metaDescription: settings?.seo?.meta_description || settings?.seo?.default_description,
-    metaKeywords: settings?.seo?.meta_keywords || settings?.seo?.default_keywords,
-    canonicalBaseUrl: settings?.seo?.canonical_url || settings?.site_info?.url,
-    contactEmail: settings?.contact?.email,
-    contactPhone: settings?.contact?.phone,
-    address: settings?.contact?.address
+    gtmId: currentSettings?.integrations?.google_tag_manager_id,
+    geminiApiKey: currentSettings?.integrations?.gemini_api_key,
+    // Propriedades para compatibilidade com componentes existentes e defaults robustos
+    siteName: currentSettings?.site_info?.site_name || currentSettings?.site_info?.name || defaultSettings.site_info?.name,
+    siteDescription: currentSettings?.site_info?.site_description || currentSettings?.site_info?.description || defaultSettings.site_info?.description,
+    logoUrl: currentSettings?.site_info?.logo || currentSettings?.site_info?.logo_url,
+    faviconUrl: currentSettings?.site_info?.favicon_url || currentSettings?.site_info?.favicon,
+    metaTitle: currentSettings?.seo?.meta_title || currentSettings?.seo?.default_title || defaultSettings.seo?.default_title,
+    metaDescription: currentSettings?.seo?.meta_description || currentSettings?.seo?.default_description || defaultSettings.seo?.default_description,
+    metaKeywords: currentSettings?.seo?.meta_keywords || currentSettings?.seo?.default_keywords || defaultSettings.seo?.default_keywords,
+    canonicalBaseUrl: currentSettings?.seo?.canonical_url || currentSettings?.site_info?.url || defaultSettings.site_info?.url,
+    contactEmail: currentSettings?.contact?.email || defaultSettings.contact?.email,
+    contactPhone: currentSettings?.contact?.phone || defaultSettings.contact?.phone,
+    address: currentSettings?.contact?.address || defaultSettings.contact?.address
   };
 };
 

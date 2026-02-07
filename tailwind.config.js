@@ -26,9 +26,16 @@ export default {
     },
     extend: {
       colors: {
-        primary: '#8B0000',
-        'primary-hover': '#6d0000',
-        secondary: '#1c243c',
+        primary: '#BE0F0F', // Updated to match spec
+        'primary-hover': '#900000', // Darker shade for hover
+        secondary: '#1A1A1A', // Updated to match spec
+        accent: '#FFD700', // Gold for highlights
+        background: '#F5F5F5', // Light gray background
+        surface: '#FFFFFF', // White surface
+      },
+      fontFamily: {
+        sans: ['Inter', 'Roboto', 'sans-serif'],
+        mono: ['Courier New', 'monospace'], // For technical specs
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',

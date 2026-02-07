@@ -8,8 +8,8 @@ try {
   const envPath = fs.existsSync(path.join(process.cwd(), '.env'))
     ? path.join(process.cwd(), '.env')
     : (fs.existsSync(path.join(process.cwd(), '.env.production'))
-        ? path.join(process.cwd(), '.env.production')
-        : undefined)
+      ? path.join(process.cwd(), '.env.production')
+      : undefined)
   if (envPath) dotenv.config({ path: envPath })
   else dotenv.config()
 } catch {
@@ -40,6 +40,7 @@ const getCanonicalBaseUrl = async () => {
       .single()
     const url = data?.seo?.canonical_url || ''
     const trimmed = (url || '').trim().replace(/\/+$/, '')
+    if (trimmed.includes('repalmarechal')) return 'https://www.repallondrina.com.br'
     return trimmed || BASE_URL
   } catch {
     return BASE_URL
@@ -61,7 +62,7 @@ const generateSitemapXml = async (originOverride) => {
     ? originOverride.trim().replace(/\/+$/, '')
     : await getCanonicalBaseUrl()
   const now = formatDate()
-  
+
   let urls = [
     { loc: `${origin}/`, changefreq: 'weekly', priority: '1.0', lastmod: now },
     { loc: `${origin}/categorias`, changefreq: 'weekly', priority: '0.8', lastmod: now },
@@ -77,7 +78,7 @@ const generateSitemapXml = async (originOverride) => {
         .select('id, slug, parent_id, updated_at, active')
         .eq('active', true)
         .limit(50000)
-      
+
       const { data: products } = await supabase
         .from('products')
         .select('slug, updated_at, active')
@@ -119,7 +120,7 @@ const generateSitemapXml = async (originOverride) => {
   const urlsXml = urls
     .map(u => `  <url>\n    <loc>${u.loc}</loc>\n    <lastmod>${u.lastmod}</lastmod>\n    <changefreq>${u.changefreq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`)
     .join('\n')
-  
+
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlsXml}\n</urlset>`
   return xml
 }
@@ -128,22 +129,22 @@ const main = async () => {
   try {
     const origin = await getCanonicalBaseUrl()
     console.log(`Gerando sitemap para: ${origin}`)
-    
+
     const xml = await generateSitemapXml(origin)
-    
+
     // Salvar em dist/ se existir
     if (fs.existsSync(DIST_DIR)) {
       const sitemapPathDist = path.join(DIST_DIR, 'sitemap.xml')
       fs.writeFileSync(sitemapPathDist, xml, 'utf-8')
       console.log(`Sitemap salvo em: ${sitemapPathDist}`)
     }
-    
+
     // Salvar em public/
     ensureDir(PUBLIC_DIR)
     const sitemapPathPublic = path.join(PUBLIC_DIR, 'sitemap.xml')
     fs.writeFileSync(sitemapPathPublic, xml, 'utf-8')
     console.log(`Sitemap salvo em: ${sitemapPathPublic}`)
-    
+
     console.log('Sitemap gerado com sucesso!')
   } catch (e) {
     console.error('Falha ao gerar sitemap:', e)
