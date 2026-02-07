@@ -6,8 +6,9 @@ interface MyMapsComponentProps {
 
 const MyMapsComponent: React.FC<MyMapsComponentProps> = ({ className = '' }) => {
   // URL do Google My Maps configurada
-  const mapEmbedUrl = 'https://www.google.com/maps/d/u/2/embed?mid=1DUHTC70cRul1dTkvbTX2HXPDksZjATY&ehbc=2E312F';
-  
+  // URL do Google Maps Embed para Repal Londrina
+  const mapEmbedUrl = 'https://maps.google.com/maps?width=100%25&height=600&hl=pt-br&q=R.+Minas+Gerais,+164+-+Centro,+Londrina+-+PR,+86010-170+(Repal%20Londrina)&t=&z=16&ie=UTF8&iwloc=B&output=embed';
+
 
 
   return (
@@ -30,7 +31,7 @@ const MyMapsComponent: React.FC<MyMapsComponentProps> = ({ className = '' }) => 
           }}
         />
       </div>
-      
+
 
     </div>
   );

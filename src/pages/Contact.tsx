@@ -328,8 +328,8 @@ const Contact: React.FC = () => {
             <button
               onClick={() => setActiveTab('entrega')}
               className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mx-1 mb-2 sm:mb-0 ${activeTab === 'entrega'
-                  ? 'bg-red-900 text-white shadow-lg'
-                  : 'text-gray-600 hover:text-red-900 hover:bg-white'
+                ? 'bg-red-900 text-white shadow-lg'
+                : 'text-gray-600 hover:text-red-900 hover:bg-white'
                 }`}
             >
               Entrega &amp; Instalação
@@ -337,8 +337,8 @@ const Contact: React.FC = () => {
             <button
               onClick={() => setActiveTab('garantia')}
               className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mx-1 mb-2 sm:mb-0 ${activeTab === 'garantia'
-                  ? 'bg-red-900 text-white shadow-lg'
-                  : 'text-gray-600 hover:text-red-900 hover:bg-white'
+                ? 'bg-red-900 text-white shadow-lg'
+                : 'text-gray-600 hover:text-red-900 hover:bg-white'
                 }`}
             >
               Garantia &amp; Manutenção
@@ -346,8 +346,8 @@ const Contact: React.FC = () => {
             <button
               onClick={() => setActiveTab('produtos')}
               className={`px-6 py-3 rounded-lg font-semibold transition-all duration-300 mx-1 mb-2 sm:mb-0 ${activeTab === 'produtos'
-                  ? 'bg-red-900 text-white shadow-lg'
-                  : 'text-gray-600 hover:text-red-900 hover:bg-white'
+                ? 'bg-red-900 text-white shadow-lg'
+                : 'text-gray-600 hover:text-red-900 hover:bg-white'
                 }`}
             >
               Produtos &amp; Serviços
@@ -358,8 +358,8 @@ const Contact: React.FC = () => {
           <div className="relative">
             {/* Entrega & Instalação Tab */}
             <div className={`transition-all duration-500 ${activeTab === 'entrega'
-                ? 'opacity-100 transform translate-y-0'
-                : 'opacity-0 transform translate-y-4 absolute inset-0 pointer-events-none'
+              ? 'opacity-100 transform translate-y-0'
+              : 'opacity-0 transform translate-y-4 absolute inset-0 pointer-events-none'
               }`}>
               {activeTab === 'entrega' && (
                 <div className="space-y-6">
@@ -408,8 +408,8 @@ const Contact: React.FC = () => {
 
             {/* Garantia & Manutenção Tab */}
             <div className={`transition-all duration-500 ${activeTab === 'garantia'
-                ? 'opacity-100 transform translate-y-0'
-                : 'opacity-0 transform translate-y-4 absolute inset-0 pointer-events-none'
+              ? 'opacity-100 transform translate-y-0'
+              : 'opacity-0 transform translate-y-4 absolute inset-0 pointer-events-none'
               }`}>
               {activeTab === 'garantia' && (
                 <div className="space-y-6">
@@ -448,8 +448,8 @@ const Contact: React.FC = () => {
                       Qual o tempo de resposta para assistência técnica?
                     </h3>
                     <p className="text-gray-600">
-                      Nossa equipe técnica atende chamados em até 24 horas na Grande São Paulo
-                      e até 48 horas no interior e outras capitais.
+                      Nossa equipe técnica atende chamados em até 24 horas em Londrina e Região
+                      e até 48 horas nas demais localidades.
                     </p>
                   </div>
                 </div>
@@ -458,8 +458,8 @@ const Contact: React.FC = () => {
 
             {/* Produtos & Serviços Tab */}
             <div className={`transition-all duration-500 ${activeTab === 'produtos'
-                ? 'opacity-100 transform translate-y-0'
-                : 'opacity-0 transform translate-y-4 absolute inset-0 pointer-events-none'
+              ? 'opacity-100 transform translate-y-0'
+              : 'opacity-0 transform translate-y-4 absolute inset-0 pointer-events-none'
               }`}>
               {activeTab === 'produtos' && (
                 <div className="space-y-6">

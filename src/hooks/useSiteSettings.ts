@@ -70,7 +70,7 @@ export const useSiteSettings = () => {
         .from('site_settings')
         .select('*');
 
-      
+
 
       if (allData && allData.length > 0) {
         const data = allData[0];
@@ -88,7 +88,7 @@ export const useSiteSettings = () => {
 
   useEffect(() => {
     fetchSettings();
-    
+
     // Adicionar listener para mudanças em tempo real
     let subscription: RealtimeChannel | undefined;
     if (isSupabaseConfigured) {
