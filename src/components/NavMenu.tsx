@@ -262,22 +262,6 @@ export const MobileMenuDrawer: React.FC<{
               >
                 <span className="text-base">Minha Conta</span>
               </Link>
-
-              <Link
-                to="/sobre"
-                className="flex items-center gap-3 px-3 rounded-lg text-gray-700 hover:bg-red-50 active:bg-red-100 hover:text-primary font-medium transition-colors min-h-[48px] p-3"
-                onClick={onClose}
-              >
-                <span className="text-base">Sobre Nós</span>
-              </Link>
-
-              <Link
-                to="/contato"
-                className="flex items-center gap-3 px-3 rounded-lg text-gray-700 hover:bg-red-50 active:bg-red-100 hover:text-primary font-medium transition-colors min-h-[48px] p-3"
-                onClick={onClose}
-              >
-                <span className="text-base">Contato</span>
-              </Link>
             </div>
 
             {/* Categorias */}
@@ -402,13 +386,6 @@ const NavMenu: React.FC<{ className?: string }> = ({ className = '' }) => {
   return (
     <div className={`${className} relative`}>
       <nav className="hidden lg:flex items-center gap-4">
-        <Link to="/sobre" className="flex items-center gap-1 px-3 py-2 rounded-md text-gray-700 hover:bg-red-50 hover:text-primary transition font-medium whitespace-nowrap">
-          Sobre Nós
-        </Link>
-        <Link to="/contato" className="flex items-center gap-1 px-3 py-2 rounded-md text-gray-700 hover:bg-red-50 hover:text-primary transition font-medium whitespace-nowrap">
-          Contato
-        </Link>
-        <div className="w-px h-5 bg-gray-300 mx-1"></div>
         {tree.map((cat) => {
           const Icon = iconMap[cat.icon || ''];
           return (
