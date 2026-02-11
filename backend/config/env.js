@@ -15,6 +15,17 @@ export const ENV = {
   ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
 };
 
+// Validação Estrita do Banco de Dados (Regra de Projeto)
+const ALLOWED_SUPABASE_URL = 'https://lbrkgkiosxprpcgmonxy.supabase.co';
+if (ENV.SUPABASE_URL && !ENV.SUPABASE_URL.includes('lbrkgkiosxprpcgmonxy')) {
+  console.error('❌ ERRO FATAL: VIOLAÇÃO DE REGRA DE PROJETO');
+  console.error('Este projeto está configurado para usar EXCLUSIVAMENTE o banco de dados oficial.');
+  console.error(`URL Esperada (contendo): lbrkgkiosxprpcgmonxy`);
+  console.error(`URL Recebida: ${ENV.SUPABASE_URL}`);
+  console.error('Por favor, verifique seu arquivo .env e restaure as configurações originais.');
+  process.exit(1);
+}
+
 // Validação de Segurança para Produção
 if (ENV.NODE_ENV === 'production') {
   if (ENV.JWT_SECRET === 'dev-secret-change-me') {

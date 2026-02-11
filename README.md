@@ -1,293 +1,141 @@
-# Repal Equipamentos - Site Institucional
+# Repal Londrina - Site Institucional e E-commerce
 
-Site institucional da Repal Equipamentos, especializada em equipamentos para cozinha industrial e comercial.
+Site institucional e catálogo de produtos da Repal Londrina, especializada em equipamentos para gastronomia, refrigeração comercial e instalações comerciais.
+
+## 🚨 Política de Banco de Dados (CRÍTICO)
+
+Este projeto possui uma **trava de segurança** que impede a execução com bancos de dados não autorizados.
+
+- **Banco de Dados Oficial:** Supabase (`lbrkgkiosxprpcgmonxy`)
+- **Política Detalhada:** Consulte o arquivo [DATABASE_POLICY.md](./DATABASE_POLICY.md) para mais detalhes.
+- **Atenção:** A aplicação não iniciará se a variável `VITE_SUPABASE_URL` no arquivo `.env` for diferente da oficial.
+
+---
 
 ## 🚀 Tecnologias Utilizadas
 
-- **Frontend**: React 18 + TypeScript + Vite
-- **Styling**: Tailwind CSS
-- **Roteamento**: React Router DOM
-- **Estado**: React Query (TanStack Query)
-- **Backend**: Supabase (Database, Auth, Storage)
-- **Ícones**: Lucide React
-- **Notificações**: Sonner
-- **Data**: date-fns
-- **Containerização**: Docker + Docker Compose
+### Frontend
+- **Framework:** React 18 + TypeScript + Vite
+- **Estilização:** Tailwind CSS + Lucide React (Ícones)
+- **Gerenciamento de Estado:** Zustand + React Query (TanStack Query)
+- **Roteamento:** React Router DOM
+- **Editor de Texto:** React Quill (para descrições de produtos)
+- **Notificações:** Sonner
+
+### Backend & Serviços
+- **Backend API:** Node.js + Express (Servidor Customizado)
+- **Database:** Supabase (PostgreSQL, Auth, Storage, Realtime)
+- **IA:** Google Gemini API (Geração automática de descrições e SEO)
+- **Segurança:** Helmet, CORS, Rate Limiting
 
 ## 📋 Funcionalidades
 
-### Públicas
-- ✅ Página inicial com hero impactante
-- ✅ Catálogo de produtos com filtros e busca
-- ✅ Páginas individuais de produtos com galeria
-- ✅ Páginas de categorias
-- ✅ Sistema de leads com captura automática
-- ✅ Integração WhatsApp
-- ✅ Páginas institucionais (Sobre, Contato)
-- ✅ Design responsivo
-- ✅ SEO otimizado com slugs amigáveis
+### Área Pública
+- 🏠 **Home:** Banners rotativos, produtos em destaque, marcas parceiras.
+- 🛍️ **Catálogo:** Listagem de produtos com filtros avançados (categoria, preço, marca).
+- 🔍 **Busca:** Pesquisa inteligente de produtos.
+- 📱 **Responsividade:** Layout adaptável para Mobile, Tablet e Desktop.
+- 📞 **Leads:** Integração com WhatsApp e formulários de contato.
+- 📍 **Lojas:** Localizador de lojas físicas.
 
-### Administrativas
-- ✅ Dashboard com estatísticas
-- ✅ Gestão de produtos
-- ✅ Gestão de categorias
-- ✅ Gestão de leads com status
-- ✅ Interface intuitiva
-- ✅ **Geração de conteúdo com IA** (Gemini API) - Gera descrições, especificações técnicas e SEO automaticamente
+### Painel Administrativo (Área Restrita)
+- 📊 **Dashboard:** Métricas de acesso e leads.
+- 📦 **Produtos:** CRUD completo, galeria de imagens, gestão de preços e estoque.
+- ✨ **IA Generativa:** Criação automática de descrições e metadados SEO para produtos.
+- 🏷️ **Categorias & Marcas:** Gestão da árvore de categorias e parceiros.
+- 📢 **Marketing:** Gestão de Banners e Promoções.
+- 👥 **Usuários:** Controle de acesso e permissões.
 
 ## 🛠️ Configuração do Ambiente
 
 ### Pré-requisitos
-- Node.js 20+
-- Conta no Supabase
+- Node.js 18+
+- NPM ou Yarn
 
-### 1. Clone o repositório
-```bash
-git clone <repository-url>
-cd repalnew2
-```
+### Instalação
 
-### 2. Configure as variáveis de ambiente
-Crie um arquivo `.env` na raiz do projeto:
+1. **Clone o repositório**
+   ```bash
+   git clone https://github.com/Ronickbr/Repal_londrina.git
+   cd Repal_Londrina
+   ```
 
-```env
-# Supabase
-VITE_SUPABASE_URL=sua_url_do_supabase
-VITE_SUPABASE_ANON_KEY=sua_chave_anonima_do_supabase
+2. **Instale as dependências**
+   ```bash
+   npm install
+   ```
 
-# WhatsApp
-VITE_WHATSAPP_NUMBER=5511999999999
+3. **Configure as Variáveis de Ambiente**
+   Crie um arquivo `.env` na raiz baseado no `.env.example`:
 
-# Informações da Empresa
-VITE_COMPANY_NAME=Repal Equipamentos
-VITE_COMPANY_EMAIL=contato@repalequipamentos.com.br
-VITE_COMPANY_PHONE=(11) 99999-9999
-VITE_COMPANY_ADDRESS=São Paulo, SP
+   ```env
+   # Frontend
+   VITE_SUPABASE_URL=https://lbrkgkiosxprpcgmonxy.supabase.co
+   VITE_SUPABASE_ANON_KEY=sua_chave_anonima
 
-# Google Gemini API (opcional - para geração de conteúdo com IA)
-VITE_GEMINI_API_KEY=sua_chave_do_gemini_aqui
-```
+   # Backend (Necessário para operações administrativas)
+   SUPABASE_SERVICE_ROLE_KEY=sua_chave_service_role
+   
+   # IA (Opcional)
+   GEMINI_API_KEY=sua_chave_gemini
 
-### 3. Configuração do Supabase
+   # Segurança
+   ENCRYPTION_KEY=chave_para_criptografia
+   JWT_SECRET=segredo_jwt
+   ```
 
-1. Crie um novo projeto no [Supabase](https://supabase.com)
-2. Execute a migração SQL localizada em `supabase/migrations/001_initial_schema.sql`
-3. Configure as permissões RLS conforme necessário
-4. Copie a URL e a chave anônima para o arquivo `.env`
+4. **Inicie o Projeto**
 
-## 🚀 Desenvolvimento
+   **Modo Desenvolvimento (Frontend + Backend):**
+   ```bash
+   npm run dev      # Inicia o Vite (Frontend)
+   npm run server   # Inicia o Servidor Node (Backend) - Em outro terminal
+   ```
 
-### Opção 1: Desenvolvimento Local (Node.js)
+   **Modo Produção:**
+   ```bash
+   npm run build
+   npm run start    # Ou comando equivalente para servir o build
+   ```
 
-```bash
-# Instalar dependências
-npm install
-
-# Iniciar servidor de desenvolvimento
-npm run dev
-```
-
-Acesse: http://localhost:5173
-
-### Opção 2: Desenvolvimento com Docker (Recomendado)
-
-```bash
-# Iniciar ambiente de desenvolvimento
-docker-compose up app-dev
-
-# Ou em background
-docker-compose up -d app-dev
-```
-
-Acesse: http://localhost:5173
-
-### Scripts Disponíveis
-
-```bash
-npm run dev          # Servidor de desenvolvimento
-npm run build        # Build para produção
-npm run preview      # Preview do build
-npm run lint         # Verificar código
-npm run type-check   # Verificar tipos TypeScript
-```
-
-## 🏗️ Estrutura do Projeto
+## 📂 Estrutura do Projeto
 
 ```
-src/
-├── components/          # Componentes reutilizáveis
-│   ├── Layout.tsx      # Layout principal
-│   ├── ProductCard.tsx # Card de produto
-│   └── ContactForm.tsx # Formulário de contato
-├── hooks/              # Hooks customizados
-│   ├── useCategories.ts
-│   ├── useProducts.ts
-│   └── useLeads.ts
-├── lib/                # Configurações e utilitários
-│   ├── supabase.ts     # Cliente Supabase
-│   └── react-query.ts  # Configuração React Query
-├── pages/              # Páginas da aplicação
-│   ├── Home.tsx
-│   ├── Catalog.tsx
-│   ├── Category.tsx
-│   ├── ProductDetail.tsx
-│   ├── About.tsx
-│   ├── Contact.tsx
-│   └── Admin.tsx
-└── App.tsx             # Componente principal
+Repal_Londrina/
+├── backend/            # Servidor Node.js Express
+│   ├── config/         # Configurações (Env, Supabase)
+│   ├── controllers/    # Lógica das rotas
+│   ├── routes/         # Definição de endpoints da API
+│   └── services/       # Regras de negócio
+├── src/                # Frontend React
+│   ├── components/     # Componentes UI reutilizáveis
+│   ├── contexts/       # Contextos globais (Auth, etc)
+│   ├── hooks/          # Custom Hooks
+│   ├── lib/            # Configurações de libs (Supabase, Query)
+│   ├── pages/          # Páginas da aplicação
+│   │   ├── admin/      # Páginas do Painel Admin
+│   │   └── ...         # Páginas Públicas
+│   └── types/          # Definições de Tipos TypeScript
+├── supabase/           # Arquivos do Banco de Dados
+│   ├── migrations/     # Scripts SQL de migração
+│   └── backup/         # Backups de segurança
+└── public/             # Assets estáticos
 ```
 
-## 🎨 Design System
+## 📝 Scripts Disponíveis
 
-### Paleta de Cores
-- **Vermelho Principal**: #8B0000 (Repal Red)
-- **Azul Secundário**: #000080 (Navy Blue)
-- **Branco**: #FFFFFF
-- **Cinza Escuro**: #333333
-- **Verde WhatsApp**: #25D366
-
-### Tipografia
-- Fonte principal: Inter (via Tailwind CSS)
-- Hierarquia clara com tamanhos responsivos
-
-## 📱 Responsividade
-
-O site é totalmente responsivo com breakpoints:
-- **Mobile**: < 768px
-- **Tablet**: 768px - 1024px
-- **Desktop**: > 1024px
+- `npm run dev`: Inicia o servidor de desenvolvimento Vite.
+- `npm run build`: Compila o projeto para produção.
+- `npm run lint`: Executa a verificação de código (ESLint).
+- `npm run server`: Inicia o backend Node.js.
+- `npm run generate:sitemap`: Gera o sitemap.xml atualizado.
 
 ## 🔒 Segurança
 
-- Row Level Security (RLS) configurado no Supabase
-- Validação de dados no frontend e backend
-- Sanitização de inputs
-- Headers de segurança configurados no Nginx
-
-## 🤖 Funcionalidade de IA - Geração de Conteúdo
-
-O sistema possui uma funcionalidade integrada de geração de conteúdo com IA que utiliza a API do Google Gemini para criar automaticamente:
-
-### Conteúdo Gerado
-- **Descrição Detalhada**: Texto persuasivo com mínimo 500 caracteres
-- **Descrição Curta**: Resumo impactante em 1-2 frases
-- **Principais Características**: Lista dos 5 principais diferenciais
-- **Especificações Técnicas**: Lista detalhada com mínimo 8 itens
-- **Dados do Produto**: Modelo e código SKU sugeridos
-- **SEO Completo**: Meta title, meta description e palavras-chave otimizadas
-
-### Como Usar
-1. Acesse o painel administrativo
-2. Crie ou edite um produto
-3. Clique no botão "✨ Gerar com IA" ao lado do campo de descrição
-4. Aguarde o processamento (indicador de loading)
-5. O conteúdo será gerado e preenchido automaticamente nos campos apropriados
-6. Revise e edite conforme necessário antes de salvar
-
-### Configuração
-1. Obtenha uma chave de API do Google Gemini em: https://makersuite.google.com/app/apikey
-2. Adicione a chave ao arquivo `.env` como `VITE_GEMINI_API_KEY`
-3. A funcionalidade estará disponível automaticamente no formulário de produtos
-
-### Observações
-- A API do Gemini é gratuita até certo limite de uso mensal
-- O conteúdo gerado deve ser revisado antes da publicação
-- A funcionalidade é opcional - o sistema funcionará normalmente sem a chave API
-- Em caso de erro na API, o sistema usará conteúdo padrão estruturado
-
-## 🚀 Deploy
-
-### Opção 1: Docker (Produção)
-
-```bash
-# Build e iniciar em produção
-docker-compose --profile production up app-prod
-```
-
-### Opção 2: Vercel (Recomendado)
-
-1. Conecte o repositório ao Vercel
-2. Configure as variáveis de ambiente
-3. Deploy automático a cada push
-
-### Opção 3: Build Manual
-
-```bash
-# Gerar build
-npm run build
-
-# Os arquivos estarão em dist/
-# Servir com qualquer servidor web
-```
-
-## 📊 Monitoramento
-
-- React Query Devtools (desenvolvimento)
-- Console logs estruturados
-- Métricas do Supabase Dashboard
-
-## 🤝 Contribuição
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## 📝 Licença
-
-Este projeto é propriedade da Repal Equipamentos. Todos os direitos reservados.
-
-## 📞 Suporte
-
-Para suporte técnico, entre em contato:
-- Email: dev@repalequipamentos.com.br
-- WhatsApp: (11) 99999-9999
+Este projeto segue práticas rigorosas de segurança:
+- **RLS (Row Level Security):** Dados protegidos diretamente no banco de dados.
+- **Validação de Banco:** Trava lógica no código para impedir conexão com bancos desconhecidos.
+- **Autenticação:** Gerenciada via Supabase Auth.
 
 ---
-
-**Desenvolvido com ❤️ para Repal Equipamentos**
-# Repal New — Autenticação e Login
-
-## Correções e Melhorias Implementadas
-
-- Unificação do roteamento API na Vercel para respeitar limite do plano Hobby (1 função): `api/[...path].js` com rewrite apenas para rotas não-API
-- Handlers robustos para autenticação: login, logout, me, 2FA, CSRF e admin/products
-- CORS consistente: `Access-Control-Allow-Origin` baseado em `Origin/Host` e `Allow-Credentials: true`
-- Tratamento de erros com mensagens claras (401, 403, 404, 405, 429) e logs de auditoria
-- Frontend resiliente: `apiFetchAny` com fallback de rotas, timeout (15s) e mensagens amigáveis
-- Testes automatizados (Vitest) cobrindo UI de login, erros comuns e integração básica
-
-## Variáveis de Ambiente (Vercel)
-
-- `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` — acesso de leitura
-- `SUPABASE_SERVICE_ROLE_KEY` — operações administrativas
-- `JWT_SECRET` — assinatura de sessão
-- `VITE_DEV_AUTH_BYPASS=false` — produção
-- `VITE_API_BASE_URL` — vazio em produção (same-origin)
-
-## Deploy — vercel.json
-
-```json
-{
-  "version": 2,
-  "builds": [
-    { "src": "api/[...path].js", "use": "@vercel/node" },
-    { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } }
-  ],
-  "rewrites": [
-    { "source": "/((?!api).*)", "destination": "/index.html" }
-  ]
-}
-```
-
-## Testes
-
-- Executar: `npm run test`
-- E2E básico: `npm run e2e:auth` (define `TARGET_URL` quando necessário)
-
-## Segurança
-
-- Cookies de sessão: `HttpOnly`, `Secure`, `SameSite=Strict`
-- CSRF: cookie `csrf_token` + cabeçalho `X-CSRF-Token` em mutações
-- 2FA: TOTP com verificação no backend
+© 2025 Repal Londrina. Todos os direitos reservados.
