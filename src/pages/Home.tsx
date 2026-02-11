@@ -299,7 +299,7 @@ const Home: React.FC = () => {
             </div>
             <div className="relative h-64 lg:h-full min-h-[300px] rounded-2xl overflow-hidden shadow-xl">
               <img
-                src="https://i.imgur.com/O4LVLnI.jpeg"
+                src="https://i.imgur.com/LLQU0vJ.png"
                 alt="Repal Londrina Showroom"
                 className="absolute inset-0 w-full h-full object-cover"
               />
