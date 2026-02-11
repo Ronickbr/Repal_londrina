@@ -1175,6 +1175,8 @@ PALAVRAS-CHAVE:
       const data = products.map(product => ({
         ID: product.id,
         Nome: product.name,
+        Categoria: categories.find(c => c.id === product.category_id)?.name || '-',
+        Subcategoria: categories.find(c => c.id === product.subcategory_id)?.name || '-',
         Marca: product.brand || '',
         Preço: product.price || 0
       }));
@@ -1590,7 +1592,9 @@ PALAVRAS-CHAVE:
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">{product.categories?.name || '-'}</div>
+                    <div className="text-sm text-gray-900">
+                      {categories.find(c => c.id === product.category_id)?.name || '-'}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">{categories.find(c => c.id === product.subcategory_id)?.name || '-'}</div>

@@ -80,7 +80,7 @@ const About: React.FC = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-primary rounded-2xl rotate-3 opacity-20 transform translate-x-4 translate-y-4"></div>
               <img
-                src="/images/coz2.jpg"
+                src="https://www.nutrimixassessoria.com.br/wp-content/uploads/2024/05/ar-condicionado-cozinha-industrial.png"
                 alt="Cozinha Industrial Moderna"
                 className="relative rounded-2xl shadow-2xl w-full object-cover h-[400px] border-4 border-white/10"
               />
