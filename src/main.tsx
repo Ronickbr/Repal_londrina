@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { QueryClientProvider } from '@tanstack/react-query'
+import { Analytics } from '@vercel/analytics/react'
 import { queryClient } from './lib/react-query'
 import './index.css'
 import './styles/responsive.css'
@@ -79,6 +80,7 @@ async function bootstrap() {
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <App />
+        <Analytics />
       </QueryClientProvider>
     </StrictMode>,
   )
