@@ -73,8 +73,12 @@ const Layout: React.FC = () => {
       </Helmet>
       <div className="min-h-screen flex flex-col bg-white">
         <StickyQuoteBar />
-        <PopupManager />
-        <GlobalPopup />
+        {location.pathname !== '/' && (
+          <>
+            <PopupManager />
+            <GlobalPopup />
+          </>
+        )}
         <Header />
         <main className="flex-1">
           <Outlet />
