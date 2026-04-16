@@ -1,3 +1,11 @@
+## 2026-04-16 - v1.5.1
+
+- **Frontend & Integrações**:
+  - **Google Tag Manager**:
+    - Corrigida a injeção do bloco `<noscript>` com `iframe` do GTM no início do `body`, usando o ID salvo em configurações.
+  - **Página Institucional**:
+    - Atualizada a imagem da loja física na página `About`.
+
 ## 2026-02-06 - v0.5.9
 
 - **Correções & Melhorias**:
