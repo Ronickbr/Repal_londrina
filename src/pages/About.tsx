@@ -133,7 +133,7 @@ const About: React.FC = () => {
             <div className="relative group">
               <div className="absolute inset-0 bg-secondary rounded-2xl -rotate-2 opacity-10 transition-transform group-hover:rotate-0 duration-300"></div>
               <img
-                src="https://i.imgur.com/O4LVLnI.jpeg"
+                src="https://i.imgur.com/F36V7tA.png"
                 alt="Loja Física da Repal Equipamentos"
                 className="relative rounded-2xl shadow-xl w-full h-[400px] object-cover transition-transform group-hover:scale-[1.01] duration-300"
               />
