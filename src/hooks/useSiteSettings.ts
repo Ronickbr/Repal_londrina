@@ -182,6 +182,7 @@ export const useSiteSettings = () => {
     fetchSettings,
     updateSettings,
     gtmId: currentSettings?.integrations?.google_tag_manager_id,
+    gaId: currentSettings?.integrations?.google_analytics_id,
     geminiApiKey: currentSettings?.integrations?.gemini_api_key,
     // Propriedades para compatibilidade com componentes existentes e defaults robustos
     siteName: currentSettings?.site_info?.site_name || currentSettings?.site_info?.name || defaultSettings.site_info?.name,

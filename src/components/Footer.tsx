@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
 import { useSiteSettings } from '../hooks/useSiteSettings';
+import { useAnalyticsConsent } from '../hooks/useAnalyticsConsent';
 
 const Footer: React.FC = () => {
   const { logoUrl, siteName } = useSiteSettings();
+  const { granted, toggle } = useAnalyticsConsent();
   const defaultLogo = "https://i.imgur.com/rVJiu8W.png";
   const [logoSrc, setLogoSrc] = useState<string>(defaultLogo);
   useEffect(() => {
@@ -96,6 +98,29 @@ const Footer: React.FC = () => {
               alt="Formas de Pagamento Aceitas"
               className="w-full max-w-[200px] sm:max-w-xs h-auto"
             />
+          </div>
+        </div>
+
+        <div className="mt-6 sm:mt-8 pt-4 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <p className="text-xs text-gray-300">
+            © {new Date().getFullYear()} {siteName || "Repal Equipamentos"}. Todos os direitos reservados.
+          </p>
+          <div className="flex items-center gap-3">
+            <label htmlFor="analytics-toggle" className="text-xs text-gray-300 cursor-pointer select-none">
+              Analytics: <span className={granted ? "text-green-300" : "text-red-300"}>{granted ? "Ativado" : "Desativado"}</span>
+            </label>
+            <button
+              id="analytics-toggle"
+              role="switch"
+              aria-checked={granted}
+              onClick={toggle}
+              className={`relative inline-flex h-5 w-9 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 ${granted ? 'bg-green-500' : 'bg-gray-500'}`}
+            >
+              <span
+                aria-hidden="true"
+                className={`pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${granted ? 'translate-x-4' : 'translate-x-0'}`}
+              />
+            </button>
           </div>
         </div>
       </div>

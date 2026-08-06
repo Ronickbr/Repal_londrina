@@ -1,9 +1,10 @@
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
-import { lazy, Suspense } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
+import { trackPageView } from './lib/analytics/gtag';
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import CategoriesIndex from './pages/CategoriesIndex';
@@ -41,6 +42,14 @@ const PromotionsPage = lazy(() => import('./pages/admin/PromotionsPage'));
 const UsersPage = lazy(() => import('./pages/admin/UsersPage'));
 const PriceAdjustmentsPage = lazy(() => import('./pages/admin/PriceAdjustmentsPage'));
 
+function AnalyticsPageViewTracker() {
+  const location = useLocation();
+  useEffect(() => {
+    trackPageView(location.pathname + location.search);
+  }, [location.pathname, location.search]);
+  return null;
+}
+
 function App() {
   return <AppContent />;
 }
@@ -55,6 +64,7 @@ function AppContent() {
             <WhatsAppProvider>
               <PopupProvider>
                 <Router>
+                  <AnalyticsPageViewTracker />
                   <Routes>
                     <Route path="/" element={<Layout />}>
                       <Route index element={<Home />} />

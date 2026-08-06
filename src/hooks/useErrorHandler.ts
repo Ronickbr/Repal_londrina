@@ -1,5 +1,6 @@
 import { useState, useCallback, useRef } from 'react';
 import { toast } from 'sonner';
+import { trackEvent } from '../lib/analytics/gtag';
 
 export interface ErrorDetails {
   message: string;
@@ -93,12 +94,11 @@ export const useErrorHandler = (options: UseErrorHandlerOptions = {}) => {
     }
 
     // Log to external service if available
-    if ((window as any).gtag) {
-      (window as any).gtag('event', 'exception', {
-        description: errorDetails.message,
-        fatal: false
-      });
-    }
+    trackEvent('exception', {
+      description: errorDetails.message,
+      fatal: false,
+      ...(errorDetails.code ? { error_code: errorDetails.code } : {})
+    });
 
     return errorDetails;
   }, [fallbackMessage, logToConsole, notifyUser, showToast]);
