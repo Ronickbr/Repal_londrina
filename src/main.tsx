@@ -7,6 +7,14 @@ import './index.css'
 import './styles/responsive.css'
 import App from './App.tsx'
 import { supabase } from './lib/supabase'
+import {
+  FALLBACK_MEASUREMENT_ID,
+  initGtag,
+  trackPageView,
+  isDebugEnabled,
+} from './lib/analytics/gtag'
+import type { GtagWindow } from './lib/analytics/gtag';
+declare const window: Window;
 
 function addScriptToHead(element: HTMLScriptElement) {
   document.head.appendChild(element)
@@ -39,6 +47,8 @@ function addNoScriptToBody(content: string, id: string) {
 
 async function loadIntegrations() {
   try {
+    const preIntegrationDataLayer = (window as { dataLayer?: unknown[] }).dataLayer;
+
     const { data, error } = await supabase
       .from('site_settings')
       .select('integrations')
@@ -47,9 +57,8 @@ async function loadIntegrations() {
     const cfg = (data && (data as { integrations?: Record<string, string> }).integrations) || {}
 
     const gtmId = String(cfg.google_tag_manager_id || '').trim()
+    const gaId = String(cfg.google_analytics_id || '').trim()
     const pixelId = String(cfg.facebook_pixel_id || '').trim()
-
-    
 
     if (gtmId) {
       createInlineScript(
@@ -72,6 +81,19 @@ async function loadIntegrations() {
         `<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1"/>`,
         'fb-pixel-noscript'
       )
+    }
+
+    const postIntegrationDataLayer = (window as { dataLayer?: unknown[] }).dataLayer;
+    if (preIntegrationDataLayer && postIntegrationDataLayer && preIntegrationDataLayer !== postIntegrationDataLayer) {
+      console.warn('[gtag:conflict] window.dataLayer foi substituído após carregar GTM/Facebook Pixel.')
+    }
+
+    if (gaId && gaId !== FALLBACK_MEASUREMENT_ID) {
+      (window as unknown as GtagWindow)[`ga-disable-${FALLBACK_MEASUREMENT_ID}`] = true;
+      initGtag(gaId);
+      trackPageView();
+    } else {
+      initGtag(undefined, { debug: isDebugEnabled() });
     }
   } catch (err) {
     console.warn('Falha ao carregar integrações', err)
